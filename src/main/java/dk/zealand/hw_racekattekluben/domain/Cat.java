@@ -24,6 +24,20 @@ public class Cat {
         this.memberId = memberId;
     }
 
+    public Cat(int id, String name, LocalDate birthdate, LocalDate deathdate,
+               String emsCode, String breederName, int memberId,
+               Integer motherId, Integer fatherId) {
+        this.id = id;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.deathdate = deathdate;
+        this.emsCode = emsCode;
+        this.breederName = breederName;
+        this.memberId = memberId;
+        this.motherId = motherId;
+        this.fatherId = fatherId;
+    }
+
     public int getId() { return id; }
     public String getName() { return name; }
     public LocalDate getBirthdate() { return birthdate; }
