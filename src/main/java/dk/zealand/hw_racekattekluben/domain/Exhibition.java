@@ -8,7 +8,8 @@ public class Exhibition {
     private String location;
     private LocalDate date;
 
-    public Exhibition(String name, String location, LocalDate date) {
+    public Exhibition(int id, String name, String location, LocalDate date) {
+        this.id = id;
         this.name = name;
         this.location = location;
         this.date = date;
