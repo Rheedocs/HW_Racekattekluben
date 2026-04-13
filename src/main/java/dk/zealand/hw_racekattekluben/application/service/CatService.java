@@ -17,44 +17,43 @@ public class CatService {
         this.catRepository = catRepository;
     }
 
-    public List<Cat> getAll() { return catRepository.findAll();
+    public List<Cat> getAll() {
+        return catRepository.findAll();
     }
 
     public Cat getById(int id) {
-        if (id <= 0){
-            throw new IllegalArgumentException("Id skal være større end 0!");
-        }
+        if (id <= 0) throw new IllegalArgumentException("Id skal være større end 0");
         Cat cat = catRepository.findById(id);
         if (cat == null) throw new CatNotFoundException(id);
         return cat;
     }
 
     public List<Cat> getByMemberId(int memberId) {
-        if (memberId <= 0){
-            throw new IllegalArgumentException("Member id skal være større end 0");}
-        List<Cat> cats = catRepository.findByMemberId(memberId);
-        if (cats == null || cats.isEmpty()){
-            throw new IllegalArgumentException("Ingen katte blev fundet for denne member id: " + memberId);
-        }
-        return cats;
-    }
-
-    private void catValidate(Cat cat){
-        if (cat.getName() == null || cat.getBreederName() == null) {throw new IllegalArgumentException("Navn og Breeder navn må ikke være tomme");}
-        if (cat.getBirthdate() == null){throw new IllegalArgumentException("Death datoen og Birth datoen må ikke være tomme");}
+        if (memberId <= 0) throw new IllegalArgumentException("Member id skal være større end 0");
+        return catRepository.findByMemberId(memberId);
     }
 
     public void create(Cat cat) {
-        catValidate(cat);
+        validateCat(cat);
         catRepository.save(cat);
     }
 
     public void update(Cat cat) {
-        catValidate(cat);
+        validateCat(cat);
         catRepository.update(cat);
     }
 
     public void delete(int id) {
+        if (id <= 0) throw new IllegalArgumentException("Id skal være større end 0");
         catRepository.delete(id);
+    }
+
+    private void validateCat(Cat cat) {
+        if (cat.getName() == null || cat.getName().isBlank())
+            throw new IllegalArgumentException("Navn må ikke være tomt");
+        if (cat.getBreederName() == null || cat.getBreederName().isBlank())
+            throw new IllegalArgumentException("Opdrætter navn må ikke være tomt");
+        if (cat.getBirthdate() == null)
+            throw new IllegalArgumentException("Fødselsdato må ikke være tom");
     }
 }

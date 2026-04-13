@@ -21,20 +21,20 @@ public class SQLMemberRepository implements IMemberRepository {
 
     @Override
     public List<Member> findAll() {
-        String sql = "SELECT * FROM member";
+        String sql = "SELECT id, name, email, password, role, is_breeder FROM member";
         return jdbcTemplate.query(sql, memberRowMapper);
     }
 
     @Override
     public Member findById(int id) {
-        String sql = "SELECT * FROM member WHERE id = ?";
+        String sql = "SELECT id, name, email, password, role, is_breeder FROM member WHERE id = ?";
         List<Member> members = jdbcTemplate.query(sql, memberRowMapper, id);
         return members.isEmpty() ? null : members.getFirst();
     }
 
     @Override
     public Member findByEmail(String email) {
-        String sql = "SELECT * FROM member WHERE email = ?";
+        String sql = "SELECT id, name, email, password, role, is_breeder FROM member WHERE email = ?";
         List<Member> members = jdbcTemplate.query(sql, memberRowMapper, email);
         return members.isEmpty() ? null : members.getFirst();
     }

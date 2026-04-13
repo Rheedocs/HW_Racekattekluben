@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racekatteklubben - Tilføj kat</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
+<header th:replace="~{fragments :: header}"></header>
+<main>
+    <h2>Tilføj kat</h2>
+    <form th:action="@{/cats/add-cat}" th:object="${cat}" method="post">
+        <label>Navn:
+            <input type="text" th:field="*{name}" />
+        </label><br>
+        <label>EMS kode:
+            <input type="text" th:field="*{emsCode}" />
+        </label><br>
+        <label>Fødselsdato:
+            <input type="date" th:field="*{birthdate}" />
+        </label><br>
+        <label>Opdrætter navn:
+            <input type="text" th:field="*{breederName}" />
+        </label><br>
+        <input type="hidden" th:field="*{memberId}" />
+        <input type="hidden" th:field="*{motherId}" />
+        <input type="hidden" th:field="*{fatherId}" />
+        <button type="submit">Tilføj kat</button>
+    </form>
+    <a th:href="@{/members}">Tilbage</a>
+</main>
 </body>
 </html>

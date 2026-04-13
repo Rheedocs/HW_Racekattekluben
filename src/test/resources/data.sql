@@ -4,10 +4,11 @@ DELETE FROM exhibition;
 DELETE FROM member;
 
 INSERT INTO member (name, email, password, role, is_breeder) VALUES
-('Anders Nielsen', 'anders@mail.dk', '{noop}password123', 'ADMIN', FALSE),
-('Birgitte Hansen', 'birgitte@mail.dk', '{noop}password123', 'USER', TRUE),
-('Carsten Madsen', 'carsten@mail.dk', '{noop}password123', 'USER', FALSE),
-('Dorthe Larsen', 'dorthe@mail.dk', '{noop}password123', 'USER', TRUE);
+INSERT INTO member (name, email, password, role, is_breeder) VALUES
+('Anders Nielsen', 'anders@mail.dk', 'password123', 'ADMIN', FALSE),
+('Birgitte Hansen', 'birgitte@mail.dk', 'password123', 'USER', TRUE),
+('Carsten Madsen', 'carsten@mail.dk', 'password123', 'USER', FALSE),
+('Dorthe Larsen', 'dorthe@mail.dk', 'password123', 'USER', TRUE);
 
 INSERT INTO exhibition (name, location, date) VALUES
 ('Dansk Racekat Show 2024', 'Odense Congress Center', '2024-03-10'),

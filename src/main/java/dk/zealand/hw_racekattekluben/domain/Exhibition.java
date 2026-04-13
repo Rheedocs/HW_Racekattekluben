@@ -8,6 +8,8 @@ public class Exhibition {
     private String location;
     private LocalDate date;
 
+    public Exhibition() {}
+
     public Exhibition(int id, String name, String location, LocalDate date) {
         this.id = id;
         this.name = name;
@@ -31,6 +33,6 @@ public class Exhibition {
 
     @Override
     public String toString() {
-        return "";
+        return "Exhibition{id=" + id + ", name='" + name + "', date=" + date + "}";
     }
 }

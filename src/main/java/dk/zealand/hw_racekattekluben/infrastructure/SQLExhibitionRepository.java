@@ -21,13 +21,13 @@ public class SQLExhibitionRepository implements IExhibitionRepository {
 
     @Override
     public List<Exhibition> findAll() {
-        String sql = "SELECT * FROM exhibition";
+        String sql = "SELECT id, name, location, date FROM exhibition";
         return jdbcTemplate.query(sql, exhibitionRowMapper);
     }
 
     @Override
     public Exhibition findById(int id) {
-        String sql = "SELECT * FROM exhibition WHERE id = ?";
+        String sql = "SELECT id, name, location, date FROM exhibition WHERE id = ?";
         List<Exhibition> exhibitions = jdbcTemplate.query(sql, exhibitionRowMapper, id);
         return exhibitions.isEmpty() ? null : exhibitions.getFirst();
     }

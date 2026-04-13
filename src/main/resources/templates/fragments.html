@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<body>
+<header th:fragment="header">
+    <div>
+        <h1><span>🐱</span> <a th:href="@{/}">Racekatteklubben</a></h1>
+        <nav>
+            <a th:href="@{/members}">Medlemmer</a>
+            <a th:href="@{/exhibitions}">Udstillinger</a>
+            <span th:if="${session.member == null}">
+                <a th:href="@{/login}">Log ind</a>
+                <a th:href="@{/members/register}">Bliv medlem</a>
+            </span>
+            <span th:if="${session.member != null}">
+                <span>Logget ind som: <strong th:text="${session.member.name}"></strong></span>
+                <a th:href="@{/logout}">Log ud</a>
+            </span>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

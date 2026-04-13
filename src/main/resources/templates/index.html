@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
-    <title>Main Menu</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racekatteklubben</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<h1>Katte Kluben</h1>
-<nav>
-
-<a th:href="@{/members/register}">
-    <button>Register</button>
-</a>
-<a th:href="@{/members/login}">
-    <button>Login</button>
-</a>
-</nav>
+<header th:replace="~{fragments :: header}"></header>
+<main>
+    <h2>Velkommen til Racekatteklubben</h2>
+    <img th:src="@{/images/cat-smug-face-3492714259.gif}" height="280" width="310"/>
+</main>
 </body>
 </html>

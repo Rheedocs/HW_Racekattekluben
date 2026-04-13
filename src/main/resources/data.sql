@@ -4,13 +4,12 @@ DELETE FROM cat;
 DELETE FROM exhibition;
 DELETE FROM member;
 
--- Passwords er plain text til testdata ({noop} fortæller Spring Security at de ikke er hashede)
--- I produktion hasher koden automatisk med BCrypt før det gemmes i databasen
+-- Passwords er plain text til testdata
 INSERT INTO member (name, email, password, role, is_breeder) VALUES
-('Anders Nielsen', 'anders@mail.dk', '{noop}password123', 'ADMIN', FALSE),
-('Birgitte Hansen', 'birgitte@mail.dk', '{noop}password123', 'USER', TRUE),
-('Carsten Madsen', 'carsten@mail.dk', '{noop}password123', 'USER', FALSE),
-('Dorthe Larsen', 'dorthe@mail.dk', '{noop}password123', 'USER', TRUE);
+('Anders Nielsen', 'anders@mail.dk', 'password123', 'ADMIN', FALSE),
+('Birgitte Hansen', 'birgitte@mail.dk', 'password123', 'USER', TRUE),
+('Carsten Madsen', 'carsten@mail.dk', 'password123', 'USER', FALSE),
+('Dorthe Larsen', 'dorthe@mail.dk', 'password123', 'USER', TRUE);
 
 INSERT INTO exhibition (name, location, date) VALUES
 ('Dansk Racekat Show 2024', 'Odense Congress Center', '2024-03-10'),

@@ -2,6 +2,7 @@ package dk.zealand.hw_racekattekluben.presentation;
 
 import dk.zealand.hw_racekattekluben.application.service.MemberService;
 import dk.zealand.hw_racekattekluben.domain.Member;
+import dk.zealand.hw_racekattekluben.domain.exceptions.MemberNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +30,8 @@ public class LoginController {
             Member member = memberService.login(email, password);
             session.setAttribute("member", member);
             return "redirect:/";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
+        } catch (MemberNotFoundException | IllegalArgumentException e) {
+            model.addAttribute("error", "Forkert email eller adgangskode");
             return "login";
         }
     }

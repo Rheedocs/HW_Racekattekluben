@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Racekatteklubben - Fejl</title>
+    <title>Racekatteklubben - Adgang nægtet</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <main>
     <div class="error-container">
-        <img th:src="@{/images/laugh-point-3205881363.gif}" height="498" width="498"/>
-        <h1>LOL! noget gik galt 🙀</h1>
-        <ul class="error-list">
-            <li th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></li>
-        </ul>
-        <a class="btn" th:href="@{/}">Tilbage til forsiden</a>
+        <h2>Denne side kræver login</h2>
+        <p>Du skal være logget ind eller blive medlem for at se denne side.</p>
+        <a class="btn" th:href="@{/login}">Log ind</a>
+        <a class="btn" th:href="@{/members/register}">Bliv medlem</a>
     </div>
 </main>
 </body>

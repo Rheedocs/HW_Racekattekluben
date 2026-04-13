@@ -12,9 +12,12 @@ public class Cat {
     private LocalDate deathdate;
     private String emsCode;
     private String breederName;
-    private final int memberId;
+    private int memberId;
     private Integer motherId;
     private Integer fatherId;
+
+    public Cat() {
+    }
 
     public Cat(String name, LocalDate birthdate, String emsCode, String breederName, int memberId) {
         this.name = name;
@@ -38,21 +41,65 @@ public class Cat {
         this.fatherId = fatherId;
     }
 
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public LocalDate getBirthdate() { return birthdate; }
-    public LocalDate getDeathdate() { return deathdate; }
-    public String getEmsCode() { return emsCode; }
-    public String getBreederName() { return breederName; }
-    public int getMemberId() { return memberId; }
-    public Integer getMotherId() { return motherId; }
-    public Integer getFatherId() { return fatherId; }
+    public int getId() {
+        return id;
+    }
 
-    public void setId(int id) { this.id = id; }
-    public void setName(String name) { this.name = name; }
-    public void setBirthdate(LocalDate birthdate) { this.birthdate = birthdate; }
-    public void setEmsCode(String emsCode) { this.emsCode = emsCode; }
-    public void setBreederName(String breederName) { this.breederName = breederName; }
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public LocalDate getDeathdate() {
+        return deathdate;
+    }
+
+    public String getEmsCode() {
+        return emsCode;
+    }
+
+    public String getBreederName() {
+        return breederName;
+    }
+
+    public int getMemberId() {
+        return memberId;
+    }
+
+    public Integer getMotherId() {
+        return motherId;
+    }
+
+    public Integer getFatherId() {
+        return fatherId;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public void setEmsCode(String emsCode) {
+        this.emsCode = emsCode;
+    }
+
+    public void setBreederName(String breederName) {
+        this.breederName = breederName;
+    }
+
+    public void setMemberId(int memberId) {
+        this.memberId = memberId;
+    }
 
     public void markAsDead(LocalDate deathdate) {
         if (this.deathdate != null) throw new CatAlreadyDeadException(this.id);
@@ -67,6 +114,6 @@ public class Cat {
 
     @Override
     public String toString() {
-        return "";
+        return "Cat{id=" + id + ", name='" + name + "', memberId=" + memberId + "}";
     }
 }

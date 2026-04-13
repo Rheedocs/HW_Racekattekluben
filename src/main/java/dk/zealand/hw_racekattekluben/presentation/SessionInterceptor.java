@@ -12,8 +12,8 @@ public class SessionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession(false);
-        if (session == null) {
-            response.sendRedirect("/login");
+        if (session == null || session.getAttribute("member") == null) {
+            response.sendRedirect("/access-denied");
             return false;
         }
         return true;

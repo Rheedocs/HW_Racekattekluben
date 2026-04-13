@@ -5,7 +5,6 @@ import dk.zealand.hw_racekattekluben.domain.Member;
 import dk.zealand.hw_racekattekluben.domain.exceptions.MemberNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RoleInfoNotFoundException;
 import java.util.List;
 
 @Service
@@ -37,8 +36,7 @@ public class MemberService {
 
     public Member login(String email, String password) {
         Member member = getByEmail(email);
-        if (member == null || !member.getPassword().equals(password))
-            throw new IllegalArgumentException("Forkert email eller adgangskode");
+        if (!member.getPassword().equals(password)) throw new IllegalArgumentException("Forkert email eller adgangskode");
         return member;
     }
 
@@ -65,6 +63,6 @@ public class MemberService {
         if (id <= 0) throw new IllegalArgumentException("Ugyldigt medlem-id");
         Member member = memberRepository.findById(id);
         if (member == null) throw new MemberNotFoundException(id);
-        memberRepository.delete(member.getId());
+        memberRepository.delete(id);
     }
 }

@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racekatteklubben - Opret konto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+<header th:replace="~{fragments :: header}"></header>
+<main>
+    <h2>Opret konto</h2>
+    <form th:action="@{/members/register}" method="post" th:object="${member}">
+        <label for="name">Navn:</label>
+        <input type="text" id="name" th:field="*{name}" required>
 
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" required>
+
+        <label for="password">Adgangskode:</label>
+        <input type="password" id="password" th:field="*{password}" required>
+
+        <label for="breeder">Opdrætter:</label>
+        <input type="checkbox" id="breeder" th:field="*{breeder}">
+
+        <button type="submit">Opret konto</button>
+    </form>
+    <p>Har du allerede en konto? <a th:href="@{/login}">Log ind</a></p>
+</main>
 </body>
 </html>

@@ -46,6 +46,6 @@ public class Member {
 
     @Override
     public String toString() {
-        return "";
+        return "Member{id=" + id + ", name='" + name + "', email='" + email + "', role=" + role + "}";
     }
 }

@@ -21,20 +21,20 @@ public class SQLCatRepository implements ICatRepository {
 
     @Override
     public List<Cat> findAll() {
-        String sql = "SELECT * FROM cat";
+        String sql = "SELECT id, name, birthdate, deathdate, ems_code, breeder_name, member_id, mother_id, father_id FROM cat";
         return jdbcTemplate.query(sql, catRowMapper);
     }
 
     @Override
     public Cat findById(int id) {
-        String sql = "SELECT * FROM cat WHERE id = ?";
+        String sql = "SELECT id, name, birthdate, deathdate, ems_code, breeder_name, member_id, mother_id, father_id FROM cat WHERE id = ?";
         List<Cat> cats = jdbcTemplate.query(sql, catRowMapper, id);
         return cats.isEmpty() ? null : cats.getFirst();
     }
 
     @Override
     public List<Cat> findByMemberId(int memberId) {
-        String sql = "SELECT * FROM cat WHERE member_id = ?";
+        String sql = "SELECT id, name, birthdate, deathdate, ems_code, breeder_name, member_id, mother_id, father_id FROM cat WHERE member_id = ?";
         return jdbcTemplate.query(sql, catRowMapper, memberId);
     }
 

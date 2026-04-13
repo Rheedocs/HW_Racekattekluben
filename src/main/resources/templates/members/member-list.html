@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racekatteklubben - Medlemmer</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
+<header th:replace="~{fragments :: header}"></header>
+<main>
+    <h2>Medlemmer</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Navn</th>
+            <th>Email</th>
+            <th>Rolle</th>
+            <th>Opdrætter</th>
+            <th>Handlinger</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${members}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.role}"></td>
+            <td th:text="${member.breeder} ? 'Ja' : 'Nej'"></td>
+            <td>
+                <a th:href="@{/cats/members/{id}(id=${member.id})}">Katte</a>
+                <a th:if="${session.member != null and session.member.role.name() == 'ADMIN'}"
+                   th:href="@{/members/edit/{id}(id=${member.id})}">Rediger</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/members/register}">Opret nyt medlem</a>
+</main>
 </body>
 </html>
