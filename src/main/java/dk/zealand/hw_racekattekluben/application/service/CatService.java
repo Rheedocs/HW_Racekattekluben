@@ -5,6 +5,7 @@ import dk.zealand.hw_racekattekluben.domain.Cat;
 import dk.zealand.hw_racekattekluben.domain.exceptions.CatNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,17 +30,18 @@ public class CatService {
     }
 
     public List<Cat> getByMemberId(int memberId) {
-        if (memberId <= 0){throw new IllegalArgumentException("Member id skal være større end 0");}
+        if (memberId <= 0){
+            throw new IllegalArgumentException("Member id skal være større end 0");}
         List<Cat> cats = catRepository.findByMemberId(memberId);
         if (cats == null || cats.isEmpty()){
-            throw new IllegalArgumentException("Ingen katte blev fundet fo denne member id: " + memberId);
+            throw new IllegalArgumentException("Ingen katte blev fundet for denne member id: " + memberId);
         }
         return cats;
     }
 
-    public void catValidate(Cat cat){
+    private void catValidate(Cat cat){
         if (cat.getName() == null || cat.getBreederName() == null) {throw new IllegalArgumentException("Navn og Breeder navn må ikke være tomme");}
-        if (cat.getDeathdate() == null || cat.getBirthdate() == null){throw new IllegalArgumentException("Death datoen og Birth datoen må ikke være tomme");}
+        if (cat.getBirthdate() == null){throw new IllegalArgumentException("Death datoen og Birth datoen må ikke være tomme");}
     }
 
     public void create(Cat cat) {
