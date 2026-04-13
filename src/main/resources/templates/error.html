@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Race Kat Klubben- Fejl</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-
+<header>
+    <h1><span>😹</span> <a th:href="@{/}">Race Kat Klubben</a></h1>
+        <nav>
+            <a th:href="@{/}">Forside</a>
+        </nav>
+</header>
+<main>
+    <div class="error-container">
+        <h1>Ups! noget gik galt 🙀</h1>
+        <ul class="error-list">
+            <li th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></li>
+        </ul>
+        <a class=btn" th:href="@{/}">Tilbage til forsiden</a>
+    </div>
+</main>
 </body>
 </html>
