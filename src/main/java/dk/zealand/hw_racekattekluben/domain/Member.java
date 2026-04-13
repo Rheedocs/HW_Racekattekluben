@@ -12,6 +12,8 @@ public class Member {
     private Role role;
     private boolean isBreeder;
 
+    public Member(){}
+
     public Member(String name, String email, String password, Role role, boolean isBreeder) {
         this.name = name;
         this.email = email;
