@@ -10,14 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
 public class MainMenuController {
-
-    private final MemberService memberService;
-
-    public MainMenuController(MemberService memberService) {
-        this.memberService = memberService;
-    }
+    
     @GetMapping("/")
     public String mainMenu() {
         return "index";

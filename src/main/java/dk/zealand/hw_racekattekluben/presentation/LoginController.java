@@ -1,9 +1,43 @@
 package dk.zealand.hw_racekattekluben.presentation;
 
+import dk.zealand.hw_racekattekluben.application.service.MemberService;
+import dk.zealand.hw_racekattekluben.domain.Member;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("")
 public class LoginController {
+
+    private final MemberService memberService;
+
+    public LoginController(MemberService memberService) {
+        this.memberService = memberService;
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
+        try {
+            Member member = memberService.login(email, password);
+            session.setAttribute("member", member);
+            return "redirect:/";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "login";
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
 }

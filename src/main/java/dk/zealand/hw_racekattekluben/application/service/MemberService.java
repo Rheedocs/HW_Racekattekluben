@@ -35,6 +35,13 @@ public class MemberService {
         return member;
     }
 
+    public Member login(String email, String password) {
+        Member member = getByEmail(email);
+        if (member == null || !member.getPassword().equals(password))
+            throw new IllegalArgumentException("Forkert email eller adgangskode");
+        return member;
+    }
+
     public void create(Member member) {
         validateMember(member);
         memberRepository.save(member);
