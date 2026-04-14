@@ -81,8 +81,10 @@ class MemberServiceTest {
 
     @Test
     void update_withValidMember_savesMember() {
-        memberService.update(member);
-        verify(memberRepository).update(member);
+        member.setId(1);
+        when(memberRepository.findById(1)).thenReturn(member);
+        memberService.update(member, false);
+        verify(memberRepository).update(any(Member.class));
     }
 
     @Test

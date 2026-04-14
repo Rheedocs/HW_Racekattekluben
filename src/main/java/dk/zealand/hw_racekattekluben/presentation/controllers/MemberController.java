@@ -45,10 +45,12 @@ public class MemberController {
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@PathVariable int id, @ModelAttribute Member member, HttpSession session) {
+    public String update(@PathVariable int id, @ModelAttribute Member member,
+                         @RequestParam(defaultValue = "false") boolean breeder,
+                         HttpSession session) {
         if (!AuthHelper.isAdminOrSelf(session, id)) return "redirect:/access-denied";
         member.setId(id);
-        memberService.update(member);
+        memberService.update(member, breeder);
         return "redirect:/members";
     }
 

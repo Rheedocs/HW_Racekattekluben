@@ -44,6 +44,11 @@ public class Member {
         this.isBreeder = true;
     }
 
+    public void removeBreeder() {
+        if (!this.isBreeder) throw new IllegalArgumentException("Medlemmet er ikke opdrætter");
+        this.isBreeder = false;
+    }
+
     @Override
     public String toString() {
         return "Member{id=" + id + ", name='" + name + "', email='" + email + "', role=" + role + ", password='[hidden]'}";

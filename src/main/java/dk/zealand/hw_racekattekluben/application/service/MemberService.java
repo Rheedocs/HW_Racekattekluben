@@ -68,12 +68,17 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void update(Member member) {
-        validateMember(member);
+    public void update(Member member, boolean breeder) {
         Member existing = getById(member.getId());
-        member.setPassword(existing.getPassword());
-        memberRepository.update(member);
+        existing.setName(member.getName());
+        existing.setEmail(member.getEmail());
+        if (breeder && !existing.isBreeder()) existing.becomeBreeder();
+        if (!breeder && existing.isBreeder()) existing.removeBreeder();
+        existing.setPassword(existing.getPassword());
+        validateMember(existing);
+        memberRepository.update(existing);
     }
+
     public void delete(int id) {
         if (id <= 0) throw new IllegalArgumentException("Ugyldigt medlem-id");
         getById(id);
