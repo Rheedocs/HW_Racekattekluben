@@ -44,7 +44,7 @@ public class CatController {
     @PostMapping("/{id}/delete")
     public String deleteCat(@PathVariable int id) {
         catService.delete(id);
-        return "redirect:/members";
+        return "redirect:/cats/cat-list";
     }
 
     @GetMapping("/{id}/edit")

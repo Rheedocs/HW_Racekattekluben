@@ -29,9 +29,17 @@
             <td th:text="${member.role}"></td>
             <td th:text="${member.breeder} ? 'Ja' : 'Nej'"></td>
             <td>
-                <a th:href="@{/cats/members/{id}(id=${member.id})}">Katte</a>
-                <a th:if="${session.member != null and session.member.role.name() == 'ADMIN'}"
-                   th:href="@{/members/edit/{id}(id=${member.id})}">Rediger</a>
+                <form th:action="@{/cats/members/{id}(id=${member.id})}" method="get">
+                    <button type="submit">Katte</button>
+                </form>
+                <form th:if="${session.member != null and session.member.role.name() == 'ADMIN'}"
+                      th:action="@{/members/edit/{id}(id=${member.id})}"
+                      method="get">
+                    <button type="submit">Rediger</button>
+                </form>
+                <form th:action="@{/members/{id}/delete(id=${member.id})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
             </td>
         </tr>
         </tbody>
