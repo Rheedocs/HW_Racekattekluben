@@ -7,9 +7,29 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header th:replace="~{fragments :: header}"></header>
+<header>
+    <header th:replace="~{fragments :: header}"></header>
+</header>
 <main>
-    <!-- TODO -->
+    <h2>Tilføj Udstilling</h2>
+    <form th:action="@{/exhibitions/add}" th:object="${exhibition}" method="post">
+        <div>
+            <label for="name">Navn:</label>
+            <input type="text" id="name" th:field="*{name}">
+        </div>
+        <div>
+            <label for="date">Dato</label>
+            <input type="date" id="date" th:field="*{date}">
+        </div>
+        <div>
+            <label for="location">Lokation</label>
+            <input type="text" id="location" th:field="*{location}">
+        </div>
+        <div>
+            <button type="submit">Opret Udstilling</button>
+        </div>
+    </form>
+    <a th:href="@{/exhibitions}">Tilbage til udstillings liste</a>
 </main>
 </body>
 </html>

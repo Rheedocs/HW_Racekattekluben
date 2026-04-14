@@ -18,13 +18,13 @@ public class ExhibitionController {
 
     @GetMapping
     public String getAllExhibitions(Model model) {
-        exhibitionService.getAll();
+        model.addAttribute("exhibitions", exhibitionService.getAll());
         return "exhibitions/exhibition-list";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-
+        model.addAttribute("exhibition", new Exhibition());
         return "exhibitions/add-exhibition";
     }
 

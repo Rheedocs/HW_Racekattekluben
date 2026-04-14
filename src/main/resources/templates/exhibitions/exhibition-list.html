@@ -7,9 +7,41 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header th:replace="~{fragments :: header}"></header>
+<header>
+    <header th:replace="~{fragments :: header}"></header>
+</header>
 <main>
-    <!-- TODO -->
+    <h2>Udstillinger</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Navn</th>
+            <th>Dato</th>
+            <th>Lokation</th>
+            <th>Handlinger</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exhibition : ${exhibitions}">
+            <td th:text="${exhibition.id}"></td>
+            <td th:text="${exhibition.name}"></td>
+            <td th:text="${exhibition.location}"></td>
+            <td th:text="${exhibition.date}"></td>
+            <td>
+                <form th:action="@{/exhibitions/edit/{id}(id=${exhibition.id})}" method="get">
+                    <button type="submit">Rediger</button>
+                </form>
+                <form th:action="@{/exhibitions/{id}/delete(id=${exhibition.id})}" method="post">
+                    <button type="submit">Slet</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/exhibitions/add}" method="get">
+        <button type="submit">Opret Ny Udstilling</button>
+    </form>
 </main>
 </body>
 </html>
