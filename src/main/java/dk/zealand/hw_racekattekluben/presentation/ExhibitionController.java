@@ -41,7 +41,7 @@ public class ExhibitionController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateExhibition(@PathVariable int id, @ModelAttribute Exhibition exhibition) {
+    public String updateExhibition(@ModelAttribute Exhibition exhibition) {
         exhibitionService.update(exhibition);
         return "redirect:/exhibitions";
     }
