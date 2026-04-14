@@ -18,37 +18,37 @@ public class ExhibitionController {
 
     @GetMapping
     public String getAllExhibitions(Model model) {
-        // TODO: Hent alle udstillinger og vis exhibition-list
+        exhibitionService.getAll();
         return "exhibitions/exhibition-list";
     }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {
-        // TODO: Tilføj tom Exhibition til model og vis add-exhibition
+
         return "exhibitions/add-exhibition";
     }
 
     @PostMapping("/add")
     public String addExhibition(@ModelAttribute Exhibition exhibition) {
-        // TODO: Kald exhibitionService.create() og redirect til /exhibitions
+        exhibitionService.create(exhibition);
         return "redirect:/exhibitions";
     }
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable int id, Model model) {
-        // TODO: Hent exhibition via id og vis edit-exhibition
+        model.addAttribute("exhibition", exhibitionService.getById(id));
         return "exhibitions/edit-exhibition";
     }
 
     @PostMapping("/edit/{id}")
     public String updateExhibition(@PathVariable int id, @ModelAttribute Exhibition exhibition) {
-        // TODO: Kald exhibitionService.update() og redirect til /exhibitions
+        exhibitionService.update(exhibition);
         return "redirect:/exhibitions";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteExhibition(@PathVariable int id) {
-        // TODO: Kald exhibitionService.delete() og redirect til /exhibitions
+        exhibitionService.delete(id);
         return "redirect:/exhibitions";
     }
 }

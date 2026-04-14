@@ -35,6 +35,11 @@
             <td th:text="${cat.memberId}"></td>
             <td th:text="${cat.motherId}"></td>
             <td th:text="${cat.fatherId}"></td>
+            <td>
+                <form th:action="@{/cats/{id}/delete(id=${cat.id})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
