@@ -48,4 +48,10 @@ public class MemberController {
         memberService.update(member);
         return "redirect:/members";
     }
+    @PostMapping("/{id}/delete")
+            public String deletemember(@PathVariable int id) {
+
+
+
+    }
 }
