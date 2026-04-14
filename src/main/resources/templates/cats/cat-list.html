@@ -7,9 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <header th:replace="~{fragments :: header}"></header>
-</header>
+<header th:replace="~{fragments :: header}"></header>
 <main>
     <h2>Katte</h2>
     <table>
@@ -23,6 +21,7 @@
             <th>Medlem</th>
             <th>Mor</th>
             <th>Far</th>
+            <th>Handlinger</th>
         </tr>
         </thead>
         <tbody>
@@ -35,12 +34,19 @@
             <td th:text="${cat.memberId}"></td>
             <td th:text="${cat.motherId}"></td>
             <td th:text="${cat.fatherId}"></td>
+            <td>
+                <a class="btn" th:href="@{/cats/{id}/edit(id=${cat.id})}">Rediger</a>
+                <form th:action="@{/cats/{id}/delete(id=${cat.id})}" method="post" style="display:contents;">
+                    <button type="submit">Slet</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
-    <a th:if="${cats != null and !#lists.isEmpty(cats)}"
-       th:href="@{/cats/members/{id}/add-cat(id=${cats[0].memberId})}">Tilføj kat</a>
-    <a th:href="@{/members}">Tilbage</a>
+    <div style="margin-top: 16px; display: flex; gap: 8px;">
+        <a class="btn" th:href="@{/cats/members/{id}/add-cat(id=${memberId})}">Tilføj kat</a>
+        <a class="btn" th:href="@{/members}">Tilbage</a>
+    </div>
 </main>
 </body>
 </html>

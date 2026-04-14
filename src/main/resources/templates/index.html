@@ -5,12 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Racekatteklubben</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        #cat-img {
+            transform: translateX(-100vw);
+            transition: transform 1.5s ease-out;
+        }
+
+        #meow-text {
+            display: none;
+            font-size: 30px;
+            font-weight: bold;
+            font-style: italic;
+            color: #6a0dad;
+            vertical-align: middle;
+            margin-left: 16px;
+        }
+
+        .cat-container {
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <main>
     <h2>Velkommen til Racekatteklubben</h2>
-    <img th:src="@{/images/cat-smug-face-3492714259.gif}" height="280" width="310"/>
+    <div class="cat-container">
+        <img id="cat-img" th:src="@{/images/cat-smug-face-3492714259.gif}" height="280" width="310"/>
+        <span id="meow-text">Meow~~</span>
+    </div>
 </main>
+<script>
+    window.addEventListener('load', () => {
+        const img = document.getElementById('cat-img');
+        const meow = document.getElementById('meow-text');
+
+        setTimeout(() => {
+            img.style.transform = 'translateX(0)';
+        }, 100);
+
+        img.addEventListener('transitionend', () => {
+            const audio = new Audio('/sounds/m-e-o-w.mp3');
+            audio.play();
+            meow.style.display = 'inline';
+        });
+    });
+</script>
 </body>
 </html>

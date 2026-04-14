@@ -31,7 +31,9 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute Member member) {
+    public String register(@RequestParam String name, @RequestParam String email, @RequestParam String password,
+                           @RequestParam(defaultValue = "false") boolean breeder) {
+        Member member = new Member(name, email, password, Role.USER, breeder);
         memberService.create(member);
         return "redirect:/login";
     }

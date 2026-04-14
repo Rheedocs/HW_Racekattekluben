@@ -77,10 +77,18 @@ button, .btn {
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-    margin-top: 16px;
+    font-family: inherit;
+    font-size: inherit;
+    box-sizing: border-box;
 }
 
 button:hover, .btn:hover { background-color: #520a8a; }
+
+td:last-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
 a { color: #6a0dad; }
 

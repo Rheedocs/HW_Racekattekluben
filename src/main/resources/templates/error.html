@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Racekatteklubben - Fejl</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-3px, -3px); }
+            50% { transform: translate(3px, 3px); }
+            75% { transform: translate(-3px, 3px); }
+        }
+
+        #error-img { animation: shake 0.1s linear infinite; }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <main>
     <div class="error-container">
-        <img th:src="@{/images/laugh-point-3205881363.gif}" height="498" width="498"/>
+        <img id="error-img" th:src="@{/images/laugh-point-3205881363.gif}" height="498" width="498"/>
         <h1>LOL! noget gik galt 🙀</h1>
         <ul class="error-list">
             <li th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></li>
@@ -18,5 +28,9 @@
         <a class="btn" th:href="@{/}">Tilbage til forsiden</a>
     </div>
 </main>
+<script>
+    const audio = new Audio('/sounds/cat-laugh.mp3');
+    audio.play();
+</script>
 </body>
 </html>

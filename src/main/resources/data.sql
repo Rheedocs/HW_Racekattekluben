@@ -6,10 +6,10 @@ DELETE FROM member;
 
 -- Passwords er plain text til testdata
 INSERT INTO member (name, email, password, role, is_breeder) VALUES
-('Anders Nielsen', 'anders@mail.dk', 'password123', 'ADMIN', FALSE),
-('Birgitte Hansen', 'birgitte@mail.dk', 'password123', 'USER', TRUE),
-('Carsten Madsen', 'carsten@mail.dk', 'password123', 'USER', FALSE),
-('Dorthe Larsen', 'dorthe@mail.dk', 'password123', 'USER', TRUE);
+('Anders Nielsen', 'anders@mail.dk', '$2a$10$dyP3gXQFSDuHPxXWxhmod.SGFZGWsGneD0lalz2UpgywiVfiJKPMu', 'ADMIN', FALSE),
+('Birgitte Hansen', 'birgitte@mail.dk', '$2a$10$dyP3gXQFSDuHPxXWxhmod.SGFZGWsGneD0lalz2UpgywiVfiJKPMu', 'USER', TRUE),
+('Carsten Madsen', 'carsten@mail.dk', '$2a$10$dyP3gXQFSDuHPxXWxhmod.SGFZGWsGneD0lalz2UpgywiVfiJKPMu', 'USER', FALSE),
+('Dorthe Larsen', 'dorthe@mail.dk', '$2a$10$dyP3gXQFSDuHPxXWxhmod.SGFZGWsGneD0lalz2UpgywiVfiJKPMu', 'USER', TRUE);
 
 INSERT INTO exhibition (name, location, date) VALUES
 ('Dansk Racekat Show 2024', 'Odense Congress Center', '2024-03-10'),

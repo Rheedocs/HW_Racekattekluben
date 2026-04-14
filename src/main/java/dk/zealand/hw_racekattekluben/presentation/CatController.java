@@ -25,6 +25,7 @@ public class CatController {
     @GetMapping("/members/{memberId}")
     public String getCatsByMember(@PathVariable int memberId, Model model) {
         model.addAttribute("cats", catService.getByMemberId(memberId));
+        model.addAttribute("memberId", memberId);
         return "cats/cat-list";
     }
 
