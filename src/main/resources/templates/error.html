@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Racekatteklubben - Fejl</title>
+    <title>😼 Fatal Katastrofe</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <style>
         @keyframes shake {
@@ -20,11 +20,12 @@
 <header th:replace="~{fragments :: header}"></header>
 <main>
     <div class="error-container">
-        <img id="error-img" th:src="@{/images/laugh-point-3205881363.gif}" height="498" width="498"/>
+        <img id="error-img" th:src="@{/images/laugh-point-3205881363.gif}" alt="Grinen kat" height="498" width="498"/>
         <h1>LOL! noget gik galt 🙀</h1>
-        <ul class="error-list">
+        <ul class="error-list" th:if="${fejl != null}">
             <li th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></li>
         </ul>
+        <p th:if="${fejl == null}">Ukendt fejl... måske katten gjorde det 🐈</p>
         <a class="btn" th:href="@{/}">Tilbage til forsiden</a>
     </div>
 </main>

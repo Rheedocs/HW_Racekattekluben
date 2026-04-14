@@ -57,7 +57,14 @@ class SQLCatRepositoryTest {
         repository.save(cat);
 
         List<Cat> cats = repository.findByMemberId(1);
-        assertTrue(cats.stream().anyMatch(c -> c.getName().equals("Test")));
+        boolean found = false;
+        for (Cat c : cats) {
+            if (c.getName().equals("Test")) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test

@@ -1,4 +1,4 @@
-package dk.zealand.hw_racekattekluben.presentation;
+package dk.zealand.hw_racekattekluben.presentation.controllers;
 
 import dk.zealand.hw_racekattekluben.application.service.MemberService;
 import dk.zealand.hw_racekattekluben.domain.Member;

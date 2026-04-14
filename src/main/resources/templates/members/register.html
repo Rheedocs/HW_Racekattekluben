@@ -10,22 +10,26 @@
 <header th:replace="~{fragments :: header}"></header>
 <main>
     <h2>Opret konto</h2>
-    <form th:action="@{/members/register}" method="post" th:object="${member}">
+    <form th:action="@{/members/register}" method="post">
         <label for="name">Navn:</label>
-        <input type="text" id="name" th:field="*{name}" required>
-
+        <input type="text" id="name" name="name" required>
         <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" required>
-
+        <input type="email" id="email" name="email"
+               placeholder="navn@domæne.dk"
+               required>
         <label for="password">Adgangskode:</label>
-        <input type="password" id="password" th:field="*{password}" required>
-
-        <label for="breeder">Opdrætter:</label>
-        <input type="checkbox" id="breeder" th:field="*{breeder}">
-
+        <input type="password" id="password" name="password" required>
+        <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px;">
+            <input type="checkbox" id="breeder" name="breeder" value="true">
+            <label for="breeder" style="font-weight: normal; display: inline;">
+                Jeg er opdrætter
+            </label>
+        </div>
         <button type="submit">Opret konto</button>
     </form>
-    <p>Har du allerede en konto? <a th:href="@{/login}">Log ind</a></p>
+    <div style="margin-top: 16px;">
+        <p>Har du allerede en konto? <a th:href="@{/login}">Log ind</a></p>
+    </div>
 </main>
 </body>
 </html>

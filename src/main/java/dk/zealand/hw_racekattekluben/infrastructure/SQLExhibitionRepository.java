@@ -1,7 +1,10 @@
 package dk.zealand.hw_racekattekluben.infrastructure;
 
 import dk.zealand.hw_racekattekluben.application.interfaces.IExhibitionRepository;
+import dk.zealand.hw_racekattekluben.domain.Cat;
+import dk.zealand.hw_racekattekluben.domain.CatExhibitionEntry;
 import dk.zealand.hw_racekattekluben.domain.Exhibition;
+import dk.zealand.hw_racekattekluben.infrastructure.mappers.CatRowMapper;
 import dk.zealand.hw_racekattekluben.infrastructure.mappers.ExhibitionRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,23 +16,52 @@ public class SQLExhibitionRepository implements IExhibitionRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final ExhibitionRowMapper exhibitionRowMapper;
+    private final CatRowMapper catRowMapper;
+
+    private static final String BASE_SQL = "SELECT id, name, location, date FROM exhibition";
 
     public SQLExhibitionRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.exhibitionRowMapper = new ExhibitionRowMapper();
+        this.catRowMapper = new CatRowMapper();
     }
 
     @Override
     public List<Exhibition> findAll() {
-        String sql = "SELECT id, name, location, date FROM exhibition";
-        return jdbcTemplate.query(sql, exhibitionRowMapper);
+        return jdbcTemplate.query(BASE_SQL, exhibitionRowMapper);
     }
 
     @Override
     public Exhibition findById(int id) {
-        String sql = "SELECT id, name, location, date FROM exhibition WHERE id = ?";
-        List<Exhibition> exhibitions = jdbcTemplate.query(sql, exhibitionRowMapper, id);
+        List<Exhibition> exhibitions = jdbcTemplate.query(BASE_SQL + " WHERE id = ?", exhibitionRowMapper, id);
         return exhibitions.isEmpty() ? null : exhibitions.getFirst();
+    }
+
+    @Override
+    public List<CatExhibitionEntry> findCatsByExhibitionId(int exhibitionId) {
+        String sql = """
+        SELECT c.id, c.name, c.birthdate, c.deathdate, c.ems_code, c.breeder_name,
+               c.image_path, c.member_id, c.mother_id, c.father_id,
+               m.name AS mother_name, f.name AS father_name,
+               ce.placement
+        FROM cat c
+        JOIN cat_exhibition ce ON c.id = ce.cat_id
+        LEFT JOIN cat m ON c.mother_id = m.id
+        LEFT JOIN cat f ON c.father_id = f.id
+        WHERE ce.exhibition_id = ?
+        ORDER BY ce.placement ASC
+        """;
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Cat cat = catRowMapper.mapRow(rs, rowNum);
+            String placement = rs.getString("placement");
+            return new CatExhibitionEntry(cat, placement);
+        }, exhibitionId);
+    }
+
+    @Override
+    public List<Integer> findRegisteredCatIds(int exhibitionId) {
+        String sql = "SELECT cat_id FROM cat_exhibition WHERE exhibition_id = ?";
+        return jdbcTemplate.queryForList(sql, Integer.class, exhibitionId);
     }
 
     @Override

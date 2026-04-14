@@ -7,10 +7,9 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <header th:replace="~{fragments :: header}"></header>
-</header>
+<header th:replace="~{fragments :: header}"></header>
 <main>
+    <h2>Rediger udstilling</h2>
     <form th:action="@{/exhibitions/edit/{id}(id=${exhibition.id})}" th:object="${exhibition}" method="post">
         <input type="hidden" th:field="*{id}" />
         <label for="name">Navn:</label>
@@ -21,7 +20,9 @@
         <input type="text" id="location" th:field="*{location}" required>
         <button type="submit">Gem ændringer</button>
     </form>
-    <a th:href="@{/exhibitions}">Tilbage</a>
+    <div style="margin-top: 16px; display: flex; gap: 8px;">
+        <a th:href="@{/exhibitions}">Tilbage</a>
+    </div>
 </main>
 </body>
 </html>

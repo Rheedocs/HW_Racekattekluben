@@ -11,10 +11,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,6 +25,9 @@ class MemberServiceTest {
 
     @Mock
     private IMemberRepository memberRepository;
+
+    @Mock
+    private BCryptPasswordEncoder passwordEncoder;
 
     @InjectMocks
     private MemberService memberService;
@@ -68,9 +73,10 @@ class MemberServiceTest {
     }
 
     @Test
-    void create_withValidMember_savesMember() {
-        memberService.create(member);
-        verify(memberRepository).save(member);
+    void create_withValidData_savesMember() {
+        when(passwordEncoder.encode("password123")).thenReturn("encoded");
+        memberService.create("Anders Nielsen", "anders@mail.dk", "password123", false);
+        verify(memberRepository).save(any(Member.class));
     }
 
     @Test

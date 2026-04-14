@@ -28,6 +28,12 @@ public class CatService {
         return cat;
     }
 
+    public List<Cat> filterAvailable(List<Cat> myCats, List<Integer> registeredIds) {
+        List<Cat> available = new ArrayList<>();
+        for (Cat cat : myCats) if (!registeredIds.contains(cat.getId())) available.add(cat);
+        return available;
+    }
+
     public List<Cat> getByMemberId(int memberId) {
         if (memberId <= 0) throw new IllegalArgumentException("Member id skal være større end 0");
         return catRepository.findByMemberId(memberId);

@@ -1,13 +1,26 @@
+/* ── Farver ── */
+:root {
+    --primary: #6a0dad;
+    --primary-dark: #520a8a;
+    --background: #f5f0ff;
+    --text: #2c2c2c;
+    --border: #ccc;
+    --error: #c0392b;
+    --error-bg: #fdecea;
+}
+
+/* ── Base ── */
 body {
     font-family: Arial, sans-serif;
-    background-color: #fdf6ff;
-    color: #2c2c2c;
+    background-color: var(--background);
+    color: var(--text);
     margin: 0;
     padding: 0;
 }
 
+/* ── Header & Nav ── */
 header {
-    background-color: #6a0dad;
+    background-color: var(--primary);
     padding: 16px 32px;
 }
 
@@ -31,46 +44,57 @@ nav {
     gap: 16px;
 }
 
-nav a, nav span a {
-    color: white;
-    text-decoration: none;
-}
-
-nav > span {
-    display: flex;
-    gap: 16px;
-    color: white;
-}
-
+nav a, nav span a { color: white; text-decoration: none; }
+nav > span { display: flex; gap: 16px; color: white; }
 nav a:hover, nav span a:hover { text-decoration: underline; }
 
+/* ── Layout ── */
 main {
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 24px;
 }
 
-h1, h2 { color: #6a0dad; }
+h1, h2 { color: var(--primary); }
+a { color: var(--primary); }
 
+/* ── Tabel ── */
 table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
-thead { background-color: #6a0dad; color: white; }
+th, td { padding: 10px; border: 1px solid var(--border); text-align: left; }
+thead { background-color: var(--primary); color: white; }
+.action-col { display: flex; align-items: center; gap: 8px; }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+.exhibition-table {
+    table-layout: fixed;
+}
+
+.exhibition-table th:nth-child(1) { width: 35%; }
+.exhibition-table th:nth-child(2) { width: 15%; }
+.exhibition-table th:nth-child(3) { width: 25%; }
+.exhibition-table th:nth-child(4) { width: 25%; }
+
+/* ── Formularer ── */
+label { display: block; font-weight: bold; }
 input, select {
     display: block;
     width: 250px;
     margin: 8px 0 16px;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 4px;
 }
-
 input[type="checkbox"] { display: inline; width: auto; }
-label { display: block; font-weight: bold; }
 
+/* ── Knapper ── */
 button, .btn {
     padding: 10px 20px;
-    background-color: #6a0dad;
+    background-color: var(--primary);
     color: white;
     border: none;
     border-radius: 4px;
@@ -81,32 +105,87 @@ button, .btn {
     font-size: inherit;
     box-sizing: border-box;
 }
+button:hover, .btn:hover { background-color: var(--primary-dark); }
 
-button:hover, .btn:hover { background-color: #520a8a; }
+.list-action {
+    margin-top: 16px;
+}
 
-td:last-child {
+/* ── Forside ── */
+.welcome-box {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    margin-top: 24px;
+    max-width: 600px;
+}
+.welcome-box p { margin: 8px 0; line-height: 1.6; }
+
+.quick-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+/* ── Kat detalje ── */
+.cat-detail-img {
+    width: 300px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.cat-detail-info {
+    margin-top: 8px;
+}
+
+.cat-detail-info p {
+    margin: 6px 0;
+}
+
+/* ── Easter egg ── */
+.cat-container {
     display: flex;
     align-items: center;
-    gap: 8px;
+    margin-top: 16px;
 }
 
-a { color: #6a0dad; }
+@keyframes meowFadeIn {
+    0% { opacity: 0; letter-spacing: -5px; }
+    100% { opacity: 1; letter-spacing: 3px; }
+}
 
+#chad-meow {
+    display: none;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: italic;
+    color: var(--primary);
+    vertical-align: middle;
+    margin-left: 16px;
+}
+
+#chad-meow.meow-animate {
+    animation: meowFadeIn 1.5s ease-out forwards;
+}
+
+/* ── Fejlbeskeder ── */
+.error {
+    background-color: var(--error-bg);
+    color: var(--error);
+    border: 1px solid var(--error);
+    border-radius: 4px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    max-width: 250px;
+}
+.error-container { max-width: 500px; margin: 60px auto; text-align: center; }
 ul.error-list { list-style: none; padding: 0; }
-ul.error-list li { color: #c0392b; padding: 4px 0; }
+ul.error-list li { color: var(--error); padding: 4px 0; }
 
-.error-container {
-    max-width: 500px;
-    margin: 60px auto;
-    text-align: center;
-}
-
+/* ── Responsiv ── */
 @media (max-width: 600px) {
-    header > div {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
+    header > div { flex-direction: column; align-items: flex-start; gap: 8px; }
     table { font-size: 13px; }
     th, td { padding: 6px; }
     input, select { width: 100%; }

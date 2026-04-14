@@ -12,23 +12,26 @@
     <h2>Tilføj kat</h2>
     <form th:action="@{/cats/add-cat}" th:object="${cat}" method="post">
         <label>Navn:
-            <input type="text" th:field="*{name}" />
-        </label><br>
+            <input type="text" th:field="*{name}" required/>
+        </label>
         <label>EMS kode:
-            <input type="text" th:field="*{emsCode}" />
-        </label><br>
+            <input type="text" th:field="*{emsCode}" required/>
+        </label>
         <label>Fødselsdato:
-            <input type="date" th:field="*{birthdate}" />
-        </label><br>
+            <input type="date" th:field="*{birthdate}" required/>
+        </label>
         <label>Opdrætter navn:
-            <input type="text" th:field="*{breederName}" />
-        </label><br>
+            <input type="text" th:field="*{breederName}" required/>
+        </label>
+        <label>Billede URL:
+            <input type="text" th:field="*{imagePath}" placeholder="https://placecats.com/300/200"/>
+        </label>
         <input type="hidden" th:field="*{memberId}" />
-        <input type="hidden" th:field="*{motherId}" />
-        <input type="hidden" th:field="*{fatherId}" />
         <button type="submit">Tilføj kat</button>
     </form>
-    <a th:href="@{/members}">Tilbage</a>
+    <div style="margin-top: 16px;">
+        <a th:href="@{/cats/members/{id}(id=${cat.memberId})}">Tilbage</a>
+    </div>
 </main>
 </body>
 </html>

@@ -45,7 +45,14 @@ class SQLExhibitionRepositoryTest {
         repository.save(exhibition);
 
         List<Exhibition> all = repository.findAll();
-        assertTrue(all.stream().anyMatch(e -> e.getName().equals("Test Show")));
+        boolean found = false;
+        for (Exhibition e : all) {
+            if (e.getName().equals("Test Show")) {
+                found = true;
+                break;
+            }
+        }
+        assertTrue(found);
     }
 
     @Test
@@ -68,6 +75,7 @@ class SQLExhibitionRepositoryTest {
     @Test
     void registerCat_newRegistration_canBeFound() {
         repository.registerCat(1, 3);
-        // ingen assertion — bare at den ikke kaster exception
+        List<Integer> registeredIds = repository.findRegisteredCatIds(3);
+        assertTrue(registeredIds.contains(1));
     }
 }

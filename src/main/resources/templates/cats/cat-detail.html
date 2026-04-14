@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racekatteklubben - Kat</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main>
+    <h2 th:text="${cat.name}"></h2>
+
+    <div th:if="${cat.name == 'Chad'}" class="cat-container">
+        <img id="chad-img" th:src="@{/images/cats/chad.gif}"
+             alt="Chad"
+             height="280" width="310"
+             style="transform: translateX(-100vw); transition: transform 6.7s ease-out;"/>
+        <span id="chad-meow">Meow~~</span>
+    </div>
+
+    <img th:if="${cat.name != 'Chad' and cat.imagePath != null}"
+         class="cat-detail-img"
+         th:src="${cat.imagePath}"
+         th:alt="${cat.name}">
+
+    <div class="cat-detail-info">
+        <p><strong>EMS kode:</strong> <span th:text="${cat.emsCode}"></span>
+            <span th:if="${cat.name == 'Chad'}"> 👑</span>
+        </p>
+        <p th:if="${cat.name == 'Chad'}"><strong>Temperament:</strong>Rolig men planlægger noget</p>
+        <p th:if="${cat.name == 'Chad'}"><strong>Status:</strong> Årvågen, stabil, mildt dømmende</p>
+        <p><strong>Fødselsdato:</strong> <span th:text="${cat.birthdate}"></span></p>
+        <p><strong>Opdrætter:</strong> <span th:text="${cat.breederName}"></span></p>
+        <p><strong>Mor:</strong> <span th:text="${cat.motherName != null ? cat.motherName : '-'}"></span></p>
+        <p><strong>Far:</strong> <span th:text="${cat.fatherName != null ? cat.fatherName : '-'}"></span></p>
+    </div>
+
+    <div style="margin-top: 16px;">
+        <a th:href="@{/cats/members/{id}(id=${cat.memberId})}">Tilbage</a>
+    </div>
+</main>
+
+<script th:if="${cat.name == 'Chad'}">
+    window.addEventListener('load', () => {
+        const img = document.getElementById('chad-img');
+        const meow = document.getElementById('chad-meow');
+
+        setTimeout(() => {
+            img.style.transform = 'translateX(0)';
+        }, 100);
+
+        img.addEventListener('transitionend', () => {
+            const audio = new Audio('/sounds/m-e-o-w.mp3');
+            audio.play();
+            meow.style.display = 'inline';
+            meow.classList.add('meow-animate');
+        });
+    });
+</script>
+</body>
+</html>

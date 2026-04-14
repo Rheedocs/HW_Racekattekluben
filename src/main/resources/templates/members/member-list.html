@@ -9,43 +9,39 @@
 <body>
 <header th:replace="~{fragments :: header}"></header>
 <main>
-    <h2>Medlemmer</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Navn</th>
-            <th>Email</th>
-            <th>Rolle</th>
-            <th>Opdrætter</th>
-            <th>Handlinger</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="member : ${members}">
-            <td th:text="${member.id}"></td>
-            <td th:text="${member.name}"></td>
-            <td th:text="${member.email}"></td>
-            <td th:text="${member.role}"></td>
-            <td th:text="${member.breeder} ? 'Ja' : 'Nej'"></td>
-            <td>
-                <form th:action="@{/cats/members/{id}(id=${member.id})}" method="get">
-                    <button type="submit">Katte</button>
-                </form>
-                <form th:if="${session.member != null and session.member.role.name() == 'ADMIN'}"
-                      th:action="@{/members/edit/{id}(id=${member.id})}"
-                      method="get">
-                    <button type="submit">Rediger</button>
-                </form>
-                <form th:action="@{/members/{id}/delete(id=${member.id})}" method="post">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div style="margin-top: 16px; display: flex; gap: 8px;">
-        <a th:href="@{/members/register}">Opret nyt medlem</a>
+    <div th:with="isAdmin=${session.member.role.name() == 'ADMIN'}">
+        <h2>Medlemmer</h2>
+        <table>
+            <thead>
+            <tr>
+                <th th:if="${isAdmin}">Id</th>
+                <th>Navn</th>
+                <th>Email</th>
+                <th th:if="${isAdmin}">Rolle</th>
+                <th>Opdrætter</th>
+                <th>Handlinger</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td th:if="${isAdmin}" th:text="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.email}"></td>
+                <td th:if="${isAdmin}" th:text="${member.role}"></td>
+                <td th:text="${member.breeder ? 'Ja' : 'Nej'}"></td>
+                <td class="action-col">
+                    <a class="btn" th:href="@{/cats/members/{id}(id=${member.id})}">Katte</a>
+                    <a class="btn"
+                       th:if="${isAdmin or session.member.id == member.id}"
+                       th:href="@{/members/edit/{id}(id=${member.id})}">Rediger</a>
+                    <a class="btn"
+                       th:if="${isAdmin or session.member.id == member.id}"
+                       th:href="@{/members/{id}/delete(id=${member.id})}">Slet</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a class="btn list-action" th:if="${isAdmin}" th:href="@{/members/register}">Opret nyt medlem</a>
     </div>
 </main>
 </body>

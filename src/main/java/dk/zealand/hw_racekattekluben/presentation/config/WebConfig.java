@@ -1,4 +1,4 @@
-package dk.zealand.hw_racekattekluben.presentation;
+package dk.zealand.hw_racekattekluben.presentation.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -23,8 +23,10 @@ public class WebConfig implements WebMvcConfigurer {
                         "/members/register",
                         "/css/**",
                         "/images/**",
+                        "/sounds/**",
                         "/cats/**",
                         "/exhibitions",
+                        "/exhibitions/*",
                         "/access-denied"
                 );
     }

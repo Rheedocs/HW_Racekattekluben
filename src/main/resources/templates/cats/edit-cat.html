@@ -21,9 +21,13 @@
         <input type="date" id="birthdate" th:field="*{birthdate}" required>
         <label for="breederName">Opdrætter navn:</label>
         <input type="text" id="breederName" th:field="*{breederName}" required>
+        <label for="imagePath">Billede URL:</label>
+        <input type="text" id="imagePath" th:field="*{imagePath}" placeholder="https://placecats.com/300/200">
         <button type="submit">Gem ændringer</button>
     </form>
-    <a th:href="@{/cats/cat-list}">Tilbage</a>
+    <div style="margin-top: 16px;">
+        <a th:href="@{/cats/members/{id}(id=${cat.memberId})}">Tilbage</a>
+    </div>
 </main>
 </body>
 </html>

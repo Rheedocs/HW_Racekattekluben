@@ -26,13 +26,14 @@ CREATE TABLE IF NOT EXISTS cat (
     deathdate DATE,
     ems_code VARCHAR(20),
     breeder_name VARCHAR(100),
+    image_path VARCHAR(255),
     member_id INT NOT NULL,
     mother_id INT,
     father_id INT,
     FOREIGN KEY (member_id) REFERENCES member(id) ON DELETE CASCADE,
     FOREIGN KEY (mother_id) REFERENCES cat(id) ON DELETE SET NULL,
     FOREIGN KEY (father_id) REFERENCES cat(id) ON DELETE SET NULL
-    );
+);
 
 CREATE TABLE IF NOT EXISTS cat_exhibition (
     cat_id INT,

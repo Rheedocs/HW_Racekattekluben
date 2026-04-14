@@ -7,41 +7,63 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <header th:replace="~{fragments :: header}"></header>
-</header>
+<header th:replace="~{fragments :: header}"></header>
 <main>
-    <h2>Udstillinger</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Navn</th>
-            <th>Dato</th>
-            <th>Lokation</th>
-            <th>Handlinger</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="exhibition : ${exhibitions}">
-            <td th:text="${exhibition.id}"></td>
-            <td th:text="${exhibition.name}"></td>
-            <td th:text="${exhibition.location}"></td>
-            <td th:text="${exhibition.date}"></td>
-            <td>
-                <form th:action="@{/exhibitions/edit/{id}(id=${exhibition.id})}" method="get">
-                    <button type="submit">Rediger</button>
-                </form>
-                <form th:action="@{/exhibitions/{id}/delete(id=${exhibition.id})}" method="post">
-                    <button type="submit">Slet</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <form th:action="@{/exhibitions/add}" method="get">
-        <button type="submit">Opret Ny Udstilling</button>
-    </form>
+    <div th:with="isAdmin=${session.member != null and session.member.role.name() == 'ADMIN'}">
+        <h2>Udstillinger</h2>
+
+        <h3>Kommende udstillinger</h3>
+        <table class="exhibition-table">
+            <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Dato</th>
+                <th>Lokation</th>
+                <th>Handlinger</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exhibition : ${exhibitions}" th:if="${exhibition.upcoming}">
+                <td th:text="${exhibition.name}"></td>
+                <td th:text="${exhibition.date}"></td>
+                <td th:text="${exhibition.location}"></td>
+                <td class="action-col">
+                    <a class="btn" th:href="@{/exhibitions/{id}(id=${exhibition.id})}">Se</a>
+                    <a class="btn" th:if="${isAdmin}" th:href="@{/exhibitions/edit/{id}(id=${exhibition.id})}">Rediger</a>
+                    <a class="btn" th:if="${isAdmin}"
+                       th:href="@{/exhibitions/{id}/delete(id=${exhibition.id})}">Slet</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Tidligere udstillinger</h3>
+        <table class="exhibition-table">
+            <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Dato</th>
+                <th>Lokation</th>
+                <th>Handlinger</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="exhibition : ${exhibitions}" th:if="${!exhibition.upcoming}">
+                <td th:text="${exhibition.name}"></td>
+                <td th:text="${exhibition.date}"></td>
+                <td th:text="${exhibition.location}"></td>
+                <td class="action-col">
+                    <a class="btn" th:href="@{/exhibitions/{id}(id=${exhibition.id})}">Se</a>
+                    <a class="btn" th:if="${isAdmin}" th:href="@{/exhibitions/edit/{id}(id=${exhibition.id})}">Rediger</a>
+                    <a class="btn" th:if="${isAdmin}"
+                       th:href="@{/exhibitions/{id}/delete(id=${exhibition.id})}">Slet</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a class="btn list-action" th:if="${isAdmin}" th:href="@{/exhibitions/add}">Opret ny udstilling</a>
+    </div>
 </main>
 </body>
 </html>

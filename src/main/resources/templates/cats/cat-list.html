@@ -7,46 +7,48 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<header>
-    <header th:replace="~{fragments :: header}"></header>
-</header>
+<header th:replace="~{fragments :: header}"></header>
 <main>
-    <h2>Katte</h2>
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Navn</th>
-            <th>EMS kode</th>
-            <th>Fødselsdato</th>
-            <th>Opdrætter</th>
-            <th>Medlem</th>
-            <th>Mor</th>
-            <th>Far</th>
-            <th>Handlinger</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="cat : ${cats}">
-            <td th:text="${cat.id}"></td>
-            <td th:text="${cat.name}"></td>
-            <td th:text="${cat.emsCode}"></td>
-            <td th:text="${cat.birthdate}"></td>
-            <td th:text="${cat.breederName}"></td>
-            <td th:text="${cat.memberId}"></td>
-            <td th:text="${cat.motherId}"></td>
-            <td th:text="${cat.fatherId}"></td>
-            <td>
-                <form th:action="@{/cats/{id}/delete(id=${cat.id})}" method="post">
-                    <button type="submit">Slet</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <a th:if="${cats != null and !#lists.isEmpty(cats)}"
-       th:href="@{/cats/members/{id}/add-cat(id=${cats[0].memberId})}">Tilføj kat</a>
-    <a th:href="@{/members}">Tilbage</a>
+    <div th:with="isAdmin=${session.member.role.name() == 'ADMIN'}">
+        <h2>Katte</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Navn</th>
+                <th>EMS kode</th>
+                <th>Fødselsdato</th>
+                <th>Opdrætter</th>
+                <th>Mor</th>
+                <th>Far</th>
+                <th>Handlinger</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cat : ${cats}">
+                <td th:text="${cat.name}"></td>
+                <td th:text="${cat.emsCode}"></td>
+                <td th:text="${cat.birthdate}"></td>
+                <td th:text="${cat.breederName}"></td>
+                <td th:text="${cat.motherName != null ? cat.motherName : '-'}"></td>
+                <td th:text="${cat.fatherName != null ? cat.fatherName : '-'}"></td>
+                <td class="action-col">
+                    <a class="btn" th:href="@{/cats/{id}/detail(id=${cat.id})}">Se</a>
+                    <a class="btn"
+                       th:if="${isAdmin or session.member.id == cat.memberId}"
+                       th:href="@{/cats/{id}/edit(id=${cat.id})}">Rediger</a>
+                    <a class="btn"
+                       th:if="${isAdmin or session.member.id == cat.memberId}"
+                       th:href="@{/cats/{id}/delete(id=${cat.id})}">Slet</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
+            <a class="btn" th:if="${memberId != null and (isAdmin or session.member.id == memberId)}"
+               th:href="@{/cats/members/{id}/add-cat(id=${memberId})}">Tilføj kat</a>
+            <a th:href="@{/members}">Tilbage</a>
+        </div>
+    </div>
 </main>
 </body>
 </html>

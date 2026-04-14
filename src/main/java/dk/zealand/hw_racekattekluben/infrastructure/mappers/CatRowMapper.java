@@ -9,12 +9,14 @@ import java.time.LocalDate;
 
 public class CatRowMapper implements RowMapper<Cat> {
 
+    private LocalDate toLocalDate(ResultSet rs, String column) throws SQLException {
+        return rs.getDate(column) != null ? rs.getDate(column).toLocalDate() : null;
+    }
+
     @Override
     public Cat mapRow(ResultSet rs, int rowNum) throws SQLException {
-        LocalDate birthdate = rs.getDate("birthdate") != null
-                ? rs.getDate("birthdate").toLocalDate() : null;
-        LocalDate deathdate = rs.getDate("deathdate") != null
-                ? rs.getDate("deathdate").toLocalDate() : null;
+        LocalDate birthdate = toLocalDate(rs, "birthdate");
+        LocalDate deathdate = toLocalDate(rs, "deathdate");
 
         int motherIdRaw = rs.getInt("mother_id");
         Integer motherId = rs.wasNull() ? null : motherIdRaw;
@@ -22,7 +24,7 @@ public class CatRowMapper implements RowMapper<Cat> {
         int fatherIdRaw = rs.getInt("father_id");
         Integer fatherId = rs.wasNull() ? null : fatherIdRaw;
 
-        return new Cat(
+        Cat cat = new Cat(
                 rs.getInt("id"),
                 rs.getString("name"),
                 birthdate,
@@ -33,5 +35,11 @@ public class CatRowMapper implements RowMapper<Cat> {
                 motherId,
                 fatherId
         );
+
+        cat.setMotherName(rs.getString("mother_name"));
+        cat.setFatherName(rs.getString("father_name"));
+        cat.setImagePath(rs.getString("image_path"));
+
+        return cat;
     }
 }

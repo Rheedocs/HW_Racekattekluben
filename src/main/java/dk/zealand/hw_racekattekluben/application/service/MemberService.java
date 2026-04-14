@@ -2,6 +2,7 @@ package dk.zealand.hw_racekattekluben.application.service;
 
 import dk.zealand.hw_racekattekluben.application.interfaces.IMemberRepository;
 import dk.zealand.hw_racekattekluben.domain.Member;
+import dk.zealand.hw_racekattekluben.domain.enums.Role;
 import dk.zealand.hw_racekattekluben.domain.exceptions.MemberNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,6 +38,22 @@ public class MemberService {
         return member;
     }
 
+    /**
+     * Henter alle medlemmer sorteret så det loggede medlem vises øverst.
+     *
+     * @param loggedInId det loggede medlems id
+     * @return sorteret liste af medlemmer
+     */
+    public List<Member> getAllSortedByLoggedIn(int loggedInId) {
+        List<Member> members = getAll();
+        members.sort((a, b) -> {
+            if (a.getId() == loggedInId) return -1;
+            if (b.getId() == loggedInId) return 1;
+            return 0;
+        });
+        return members;
+    }
+
     public Member login(String email, String password) {
         Member member = getByEmail(email);
         if (!passwordEncoder.matches(password, member.getPassword()))
@@ -44,7 +61,8 @@ public class MemberService {
         return member;
     }
 
-    public void create(Member member) {
+    public void create(String name, String email, String password, boolean breeder) {
+        Member member = new Member(name, email, password, Role.USER, breeder);
         validateMember(member);
         member.setPassword(passwordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
@@ -52,21 +70,41 @@ public class MemberService {
 
     public void update(Member member) {
         validateMember(member);
+        Member existing = getById(member.getId());
+        member.setPassword(existing.getPassword());
         memberRepository.update(member);
     }
-
     public void delete(int id) {
         if (id <= 0) throw new IllegalArgumentException("Ugyldigt medlem-id");
-        Member member = memberRepository.findById(id);
-        if (member == null) throw new MemberNotFoundException(id);
+        getById(id);
         memberRepository.delete(id);
+    }
+
+    /**
+     * Tjekker om et givet medlem er den eneste admin i systemet.
+     * Bruges til at forhindre sletning af den sidste admin.
+     *
+     * @param id medlemmets id
+     * @return true hvis medlemmet er den eneste admin, false ellers
+     */
+    public boolean isOnlyAdmin(int id) {
+        int adminCount = 0;
+        for (Member member : getAll()) if (member.getRole() == Role.ADMIN) adminCount++;
+        return adminCount == 1 && getById(id).getRole() == Role.ADMIN;
+    }
+
+    private boolean isValidEmail(String email) {
+        return email != null && !email.isBlank() &&
+                email.matches("[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}");
     }
 
     private void validateMember(Member member) {
         if (member == null) throw new IllegalArgumentException("Medlem må ikke være null");
-        if (member.getName() == null || member.getName().isBlank()) throw new IllegalArgumentException("Navn må ikke være tomt");
-        if (member.getEmail() == null || member.getEmail().isBlank() || !member.getEmail().matches(".+@.+\\..+"))
-            throw new IllegalArgumentException("Email må ikke være tom og skal indeholde @ og punktum");
-        if (member.getRole() == null) throw new IllegalArgumentException("Rolle må ikke være tom");
+        if (member.getName() == null || member.getName().isBlank())
+            throw new IllegalArgumentException("Navn må ikke være tomt");
+        if (!isValidEmail(member.getEmail()))
+            throw new IllegalArgumentException("Email er ikke gyldig");
+        if (member.getRole() == null)
+            throw new IllegalArgumentException("Rolle må ikke være tom");
     }
 }

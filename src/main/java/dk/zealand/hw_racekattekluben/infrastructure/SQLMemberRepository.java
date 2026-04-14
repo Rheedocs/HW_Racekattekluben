@@ -14,6 +14,8 @@ public class SQLMemberRepository implements IMemberRepository {
     private final JdbcTemplate jdbcTemplate;
     private final MemberRowMapper memberRowMapper;
 
+    private static final String BASE_SQL = "SELECT id, name, email, password, role, is_breeder FROM member";
+
     public SQLMemberRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.memberRowMapper = new MemberRowMapper();
@@ -21,21 +23,18 @@ public class SQLMemberRepository implements IMemberRepository {
 
     @Override
     public List<Member> findAll() {
-        String sql = "SELECT id, name, email, password, role, is_breeder FROM member";
-        return jdbcTemplate.query(sql, memberRowMapper);
+        return jdbcTemplate.query(BASE_SQL, memberRowMapper);
     }
 
     @Override
     public Member findById(int id) {
-        String sql = "SELECT id, name, email, password, role, is_breeder FROM member WHERE id = ?";
-        List<Member> members = jdbcTemplate.query(sql, memberRowMapper, id);
+        List<Member> members = jdbcTemplate.query(BASE_SQL + " WHERE id = ?", memberRowMapper, id);
         return members.isEmpty() ? null : members.getFirst();
     }
 
     @Override
     public Member findByEmail(String email) {
-        String sql = "SELECT id, name, email, password, role, is_breeder FROM member WHERE email = ?";
-        List<Member> members = jdbcTemplate.query(sql, memberRowMapper, email);
+        List<Member> members = jdbcTemplate.query(BASE_SQL + " WHERE email = ?", memberRowMapper, email);
         return members.isEmpty() ? null : members.getFirst();
     }
 

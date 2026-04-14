@@ -1,4 +1,4 @@
-package dk.zealand.hw_racekattekluben.presentation;
+package dk.zealand.hw_racekattekluben.presentation.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,10 +1,10 @@
-package dk.zealand.hw_racekattekluben.presentation;
+package dk.zealand.hw_racekattekluben.presentation.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MainMenuController {
+public class HomeController {
 
     @GetMapping("/")
     public String mainMenu() {

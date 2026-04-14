@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racekatteklubben - Udstilling</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+<main>
+    <h2 th:text="${detail.exhibition.name}"></h2>
+    <p><strong>Dato:</strong> <span th:text="${detail.exhibition.date}"></span></p>
+    <p><strong>Lokation:</strong> <span th:text="${detail.exhibition.location}"></span></p>
+
+    <h3>Tilmeldte katte</h3>
+    <table th:if="${detail.entries != null and !#lists.isEmpty(detail.entries)}">
+        <thead>
+        <tr>
+            <th>Navn</th>
+            <th>EMS kode</th>
+            <th>Opdrætter</th>
+            <th th:if="${!detail.exhibition.upcoming}">Placering</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${detail.entries}">
+            <td th:text="${entry.cat.name}"></td>
+            <td th:text="${entry.cat.emsCode}"></td>
+            <td th:text="${entry.cat.breederName}"></td>
+            <td th:if="${!detail.exhibition.upcoming}"
+                th:text="${entry.placement != null ? entry.placement : 'Ikke angivet'}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${detail.entries == null or #lists.isEmpty(detail.entries)}">Ingen katte tilmeldt endnu.</p>
+
+    <div th:if="${detail.exhibition.upcoming and session.member != null and !#lists.isEmpty(detail.availableCats)}"
+         style="margin-top: 24px;">
+        <h3>Tilmeld din kat</h3>
+        <form th:action="@{/exhibitions/{id}/register-cat(id=${detail.exhibition.id})}" method="post">
+            <label for="catId">Vælg kat:</label>
+            <select id="catId" name="catId">
+                <option th:each="cat : ${detail.availableCats}"
+                        th:value="${cat.id}"
+                        th:text="${cat.name}"></option>
+            </select>
+            <button type="submit">Tilmeld</button>
+        </form>
+    </div>
+
+    <div style="margin-top: 16px;">
+        <a th:href="@{/exhibitions}">Tilbage</a>
+    </div>
+</main>
+</body>
+</html>
