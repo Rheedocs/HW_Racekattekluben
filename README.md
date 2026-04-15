@@ -63,4 +63,4 @@ Tests dækker CatService, MemberService og ExhibitionService med Mockito, samt d
 ---
 
 ## Gruppe
-* Nicki, Goncalo, Mattias
+Nicki, Goncalo, Mattias
