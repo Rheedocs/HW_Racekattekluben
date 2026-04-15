@@ -31,14 +31,10 @@ Systemet er et Spring Boot baseret administrationssystem til en racekatteklub. D
 ---
 
 ## Opsætning
-- Åben IntelliJ
-- Gå ned i resources filen
+- Åbn projektet i IntelliJ
 - Kopier `application.properties.example` til `application.properties` og udfyld dit MySQL username og password
-- Åbn main package
-- Åbn java/dk/zealand/hw_racekattekluben
-- Åbn HwRacekatteklubenApplication.java
-- Tryk på kør/run i øverste venstre hjørne
-- Åbn din browser og skriv localhost:8080
+- Kør `HwRacekatteklubenApplication.java`
+- Åbn din browser og gå til `localhost:8080`
 
 ---
 
