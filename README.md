@@ -35,8 +35,6 @@ Systemet er et Spring Boot baseret administrationssystem til en racekatteklub. D
 - Gå ned i resources filen
 - Kopier `application.properties.example` til `application.properties` og udfyld dit MySQL username og password
 - Opret en MySQL Connection
-- Åbn schema.sql og kopier den ind i din MySQL Workbench/connection
-- Åbn data.sql og kopier den ind i din MySQL Workbench/connection
 - Åbn main package
 - Åbn java/dk/zealand/hw_racekattekluben
 - Åbn HwRacekatteklubenApplication.java
