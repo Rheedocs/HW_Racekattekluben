@@ -19,6 +19,15 @@ i sammenhæng med at når programmet køre kan vi køre vores hjemmeside
 ## Funktionalitet
 TODO: List hvad systemet kan (member CRUD, cat CRUD, exhibition, login/logout, roller osv.)
 
+Systemet er et springboot baseret administrationssystem til en racekatteklub. Det understøtter håndtering af katten, medlemmer og udstillinger samt m ed brugerlogin med forskellige roller som admin og guest.
+
+Member håndtere oprettelse af nye medlemmer, liste over medlemmer, redigere medlemdsoplysninger og slette medlemmer
+
+Cat håndtere oprettelse af nye katte med information(navn, race, opdrætter), liste over katte, redigere katteoplysninger og slette katte
+
+Exhibition håndtere oprettelse af udstillinger, tilmeding af katte til udstillinger og liste over deltagende katte
+
+
 ---
 
 ## Opsætning
