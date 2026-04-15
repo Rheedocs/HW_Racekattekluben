@@ -3,11 +3,10 @@
 ---
 
 ## Beskrivelse
-TODO: Beskriv kort hvad Racekatteklubben er og hvad systemet løser (Zealand, 2. semester, DAT-2025)
-Racekatteklubben er et program hvor man kan oprette sig som medlem samt sin kat og se udstillinger
-af katte og inden under dette se dens race,opdrætter.
+Racekatteklubben er et program hvor man kan oprette sig som medlem og derefter tilføje sin(e) kat(te) til hjemmesiden
+som andre kan se og derunder tilhører dette at andre medlemmer kan se kattens informationer og hvem den tilhører.
+(Zealand, 2. semester, DAT-2025)
 ---
-
 ## Teknologier
 TODO: List teknologier (Java, Spring Boot, MySQL, Thymeleaf, BCrypt osv.)
 - Java i dette program bruges som det primær kodning sprog da dette er hele "grunden"
@@ -23,7 +22,6 @@ som brugerne i vores program kan have, dette gør at brugernes data bliver besky
 - CSS(Style.css) bliver i dette sammenhæng bruger til vores style elementer i forhold til
 farver og layout og gør at hjemmesiden ser bedre ud og mere brugervenlig.
 ---
-
 ## Funktionalitet
 TODO: List hvad systemet kan (member CRUD, cat CRUD, exhibition, login/logout, roller osv.)
 
@@ -37,9 +35,7 @@ Systemet er et springboot baseret administrationssystem til en racekatteklub. De
 
 
 ---
-
 ## Opsætning
-TODO: Beskriv trin for trin hvordan man kører projektet lokalt (database, application.properties, kør applikationen)
 - Åben IntelliJ
 - går ned i resources filen
 - Opretter en MySQL Connection
@@ -54,13 +50,11 @@ TODO: Beskriv trin for trin hvordan man kører projektet lokalt (database, appli
 - nu åbner du google eller hvad din browser nu er.
 - og skriver localhost:8080
 ---
-
 ## Test
 Uni tests køres i IntelliJ med grøn play-knap på testklasserne.
 
 Tests dækker CatService, MemberService og ExhibitionService med Mockito, samt domain-tests for Cat, Member og Exhibition.
 
 ---
-
 ## Gruppe
 Nicki, Goncalo, Mattias
