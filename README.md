@@ -24,6 +24,12 @@ Projektet følger Clean Architecture med en lagdelt struktur:
 - **SQL-repository** kommunikerer med databasen
 
 ---
+## Datastrukturer
+Systemet anvender primært `List<T>` fra Java Collections Framework til at håndtere samlinger af objekter. 
+Repository-laget returnerer `List<Member>`, `List<Cat>` og `List<Exhibition>` fra databaseforespørgsler, og service-laget arbejder videre med disse lister. 
+I `CatService.filterAvailable()` bruges en `ArrayList` til at opbygge en filtreret liste over katte der ikke allerede er tilmeldt en udstilling. Derudover bruges `List<Integer>` til at holde styr på tilmeldte kat-id'er ved udstillingstilmelding.
+
+---
 ## Funktionalitet
 Systemet er et Spring Boot baseret administrationssystem til en racekatteklub. Det understøtter håndtering af katte, medlemmer og udstillinger samt brugerlogin med forskellige roller (ADMIN og USER).
 - **Member** håndterer oprettelse af nye medlemmer, liste over medlemmer, redigering af medlemsoplysninger og sletning af medlemmer

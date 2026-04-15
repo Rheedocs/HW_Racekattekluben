@@ -16,6 +16,8 @@
         <input type="text" id="name" th:field="*{name}" required>
         <label for="email">Email:</label>
         <input type="email" id="email" th:field="*{email}" required>
+        <label for="password">Ny adgangskode (lad være tom for at beholde nuværende):</label>
+        <input type="password" id="password" name="newPassword" autocomplete="new-password">
         <label for="breeder">Opdrætter:</label>
         <input type="checkbox" id="breeder" name="breeder" value="true" th:checked="${member.breeder}">
         <br>

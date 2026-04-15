@@ -4,6 +4,11 @@ import dk.zealand.hw_racekattekluben.domain.Member;
 import dk.zealand.hw_racekattekluben.domain.enums.Role;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Statisk hjælpeklasse til session-baseret adgangskontrol.
+ * Bruges af controllers til at tjekke om en bruger er logget ind,
+ * har admin-rolle, eller forsøger at tilgå sine egne data.
+ */
 public class AuthHelper {
 
     public static Member getLoggedIn(HttpSession session) {

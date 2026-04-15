@@ -28,6 +28,14 @@ public class CatService {
         return cat;
     }
 
+    /**
+     * Filtrerer en liste af katte så kun dem der ikke allerede
+     * er tilmeldt den givne udstilling returneres.
+     *
+     * @param myCats liste af katte tilhørende den loggede bruger
+     * @param registeredIds id'er på katte der allerede er tilmeldt
+     * @return liste af katte der kan tilmeldes
+     */
     public List<Cat> filterAvailable(List<Cat> myCats, List<Integer> registeredIds) {
         List<Cat> available = new ArrayList<>();
         for (Cat cat : myCats) if (!registeredIds.contains(cat.getId())) available.add(cat);

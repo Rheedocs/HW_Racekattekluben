@@ -24,7 +24,9 @@ public class WebConfig implements WebMvcConfigurer {
                         "/css/**",
                         "/images/**",
                         "/sounds/**",
-                        "/cats/**",
+                        "/cats/cat-list",
+                        "/cats/members/*",
+                        "/cats/*/detail",
                         "/exhibitions",
                         "/exhibitions/*",
                         "/access-denied"

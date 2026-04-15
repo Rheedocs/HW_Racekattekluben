@@ -54,6 +54,15 @@ public class MemberService {
         return members;
     }
 
+    /**
+     * Validerer email og adgangskode mod databasen.
+     * Fejlbeskeden er bevidst generisk for ikke at afsløre
+     * om det er email eller adgangskode der er forkert.
+     *
+     * @param email brugerens email
+     * @param password brugerens adgangskode i klartekst
+     * @return det fundne medlem hvis login er korrekt
+     */
     public Member login(String email, String password) {
         Member member = getByEmail(email);
         if (!passwordEncoder.matches(password, member.getPassword()))
@@ -68,13 +77,13 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void update(Member member, boolean breeder) {
+    public void update(Member member, boolean breeder, String newPassword) {
         Member existing = getById(member.getId());
         existing.setName(member.getName());
         existing.setEmail(member.getEmail());
         if (breeder && !existing.isBreeder()) existing.becomeBreeder();
         if (!breeder && existing.isBreeder()) existing.removeBreeder();
-        existing.setPassword(existing.getPassword());
+        if (newPassword != null && !newPassword.isBlank()) existing.setPassword(passwordEncoder.encode(newPassword));
         validateMember(existing);
         memberRepository.update(existing);
     }
