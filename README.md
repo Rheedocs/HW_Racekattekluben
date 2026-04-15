@@ -29,11 +29,11 @@ TODO: List hvad systemet kan (member CRUD, cat CRUD, exhibition, login/logout, r
 
 Systemet er et springboot baseret administrationssystem til en racekatteklub. Det understøtter håndtering af katten, medlemmer og udstillinger samt m ed brugerlogin med forskellige roller som admin og guest.
 
-Member håndtere oprettelse af nye medlemmer, liste over medlemmer, redigere medlemdsoplysninger og slette medlemmer
+- Member håndtere oprettelse af nye medlemmer, liste over medlemmer, redigere medlemdsoplysninger og slette medlemmer
 
-Cat håndtere oprettelse af nye katte med information(navn, race, opdrætter), liste over katte, redigere katteoplysninger og slette katte
+- Cat håndtere oprettelse af nye katte med information(navn, race, opdrætter), liste over katte, redigere katteoplysninger og slette katte
 
-Exhibition håndtere oprettelse af udstillinger, tilmeding af katte til udstillinger og liste over deltagende katte
+- Exhibition håndtere oprettelse af udstillinger, tilmeding af katte til udstillinger og liste over deltagende katte
 
 
 ---
@@ -56,9 +56,11 @@ TODO: Beskriv trin for trin hvordan man kører projektet lokalt (database, appli
 ---
 
 ## Test
-TODO: Beskriv hvilke tests der er og hvordan man kører dem (mvn test eller IntelliJ play-knap)
+Uni tests køres i IntelliJ med grøn play-knap på testklasserne.
+
+Tests dækker CatService, MemberService og ExhibitionService med Mockito, samt domain-tests for Cat, Member og Exhibition.
 
 ---
 
 ## Gruppe
-TODO: Tilføj gruppemedlemmers navne
+* Nicki, Goncalo, Mattias
