@@ -18,8 +18,10 @@
         <input type="email" id="email" th:field="*{email}" required>
         <label for="password">Ny adgangskode (lad være tom for at beholde nuværende):</label>
         <input type="password" id="password" name="newPassword" autocomplete="new-password">
-        <label for="breeder">Opdrætter:</label>
-        <input type="checkbox" id="breeder" name="breeder" value="true" th:checked="${member.breeder}">
+        <div th:if="${session.member.role.name() == 'ADMIN'}">
+            <label for="breeder">Opdrætter:</label>
+            <input type="checkbox" id="breeder" name="breeder" value="true" th:checked="${member.breeder}">
+        </div>
         <br>
         <button type="submit">Gem ændringer</button>
     </form>

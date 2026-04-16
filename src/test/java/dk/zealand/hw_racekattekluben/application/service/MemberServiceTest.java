@@ -83,7 +83,7 @@ class MemberServiceTest {
     void update_withValidMember_savesMember() {
         member.setId(1);
         when(memberRepository.findById(1)).thenReturn(member);
-        memberService.update(member, false, null);
+        memberService.update(member, false, null, false);
         verify(memberRepository).update(any(Member.class));
     }
 

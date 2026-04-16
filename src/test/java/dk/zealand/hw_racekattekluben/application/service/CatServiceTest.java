@@ -80,7 +80,7 @@ class CatServiceTest {
 
     @Test
     void create_withValidCat_savesCat() {
-        catService.create(cat);
+        catService.create(cat, "Birgitte Hansen");
         verify(catRepository).save(cat);
     }
 }

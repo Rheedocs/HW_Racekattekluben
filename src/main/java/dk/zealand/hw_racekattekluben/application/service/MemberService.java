@@ -77,12 +77,14 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void update(Member member, boolean breeder, String newPassword) {
+    public void update(Member member, boolean breeder, String newPassword, boolean isAdmin) {
         Member existing = getById(member.getId());
         existing.setName(member.getName());
         existing.setEmail(member.getEmail());
-        if (breeder && !existing.isBreeder()) existing.becomeBreeder();
-        if (!breeder && existing.isBreeder()) existing.removeBreeder();
+        if (isAdmin) {
+            if (breeder && !existing.isBreeder()) existing.becomeBreeder();
+            if (!breeder && existing.isBreeder()) existing.removeBreeder();
+        }
         if (newPassword != null && !newPassword.isBlank()) existing.setPassword(passwordEncoder.encode(newPassword));
         validateMember(existing);
         memberRepository.update(existing);

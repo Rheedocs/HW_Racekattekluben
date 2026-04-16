@@ -83,13 +83,15 @@ table {
 label { display: block; font-weight: bold; }
 input, select {
     display: block;
-    width: 250px;
+    width: 300px;
     margin: 8px 0 16px;
     padding: 8px;
     border: 1px solid var(--border);
     border-radius: 4px;
+    box-sizing: border-box;
 }
 input[type="checkbox"] { display: inline; width: auto; }
+
 
 /* ── Knapper ── */
 button, .btn {

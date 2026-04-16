@@ -20,9 +20,25 @@
         <label>Fødselsdato:
             <input type="date" th:field="*{birthdate}" required/>
         </label>
-        <label>Opdrætter navn:
-            <input type="text" th:field="*{breederName}" required/>
-        </label>
+        <label for="motherId">Mor:</label>
+        <select id="motherId" name="motherId">
+            <option value="">Ingen</option>
+            <option th:each="c : ${allCats}"
+                    th:if="${c.id != cat.id}"
+                    th:value="${c.id}"
+                    th:text="${c.name}"
+                    th:selected="${cat.motherId != null && cat.motherId == c.id}"></option>
+        </select>
+
+        <label for="fatherId">Far:</label>
+        <select id="fatherId" name="fatherId">
+            <option value="">Ingen</option>
+            <option th:each="c : ${allCats}"
+                    th:if="${c.id != cat.id}"
+                    th:value="${c.id}"
+                    th:text="${c.name}"
+                    th:selected="${cat.fatherId != null && cat.fatherId == c.id}"></option>
+        </select>
         <label>Billede URL:
             <input type="text" th:field="*{imagePath}" placeholder="https://placecats.com/300/200"/>
         </label>

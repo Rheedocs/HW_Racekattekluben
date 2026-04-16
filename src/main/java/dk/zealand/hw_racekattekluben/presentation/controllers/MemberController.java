@@ -51,7 +51,7 @@ public class MemberController {
                          HttpSession session) {
         if (!AuthHelper.isAdminOrSelf(session, id)) return "redirect:/access-denied";
         member.setId(id);
-        memberService.update(member, breeder, newPassword);
+        memberService.update(member, breeder, newPassword, AuthHelper.isAdmin(session));
         return "redirect:/members";
     }
 

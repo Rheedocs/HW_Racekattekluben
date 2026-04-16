@@ -18,9 +18,27 @@
         <label for="emsCode">EMS kode:</label>
         <input type="text" id="emsCode" th:field="*{emsCode}" required>
         <label for="birthdate">Fødselsdato:</label>
-        <input type="date" id="birthdate" th:field="*{birthdate}" required>
-        <label for="breederName">Opdrætter navn:</label>
-        <input type="text" id="breederName" th:field="*{breederName}" required>
+        <input type="date" id="birthdate" name="birthdate"
+               th:value="${#temporals.format(cat.birthdate, 'yyyy-MM-dd')}" required>
+        <label for="motherId">Mor:</label>
+        <select id="motherId" name="motherId">
+            <option value="">Ingen</option>
+            <option th:each="c : ${allCats}"
+                    th:if="${c.id != cat.id}"
+                    th:value="${c.id}"
+                    th:text="${c.name}"
+                    th:selected="${cat.motherId != null && cat.motherId == c.id}"></option>
+        </select>
+
+        <label for="fatherId">Far:</label>
+        <select id="fatherId" name="fatherId">
+            <option value="">Ingen</option>
+            <option th:each="c : ${allCats}"
+                    th:if="${c.id != cat.id}"
+                    th:value="${c.id}"
+                    th:text="${c.name}"
+                    th:selected="${cat.fatherId != null && cat.fatherId == c.id}"></option>
+        </select>
         <label for="imagePath">Billede URL:</label>
         <input type="text" id="imagePath" th:field="*{imagePath}" placeholder="https://placecats.com/300/200">
         <button type="submit">Gem ændringer</button>

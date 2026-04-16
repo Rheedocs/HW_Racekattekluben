@@ -1,6 +1,7 @@
 package dk.zealand.hw_racekattekluben.presentation.exceptions;
 
 import dk.zealand.hw_racekattekluben.domain.exceptions.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,8 +16,9 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public String handleIllegalArgument(IllegalArgumentException ex, Model model) {
+    public String handleIllegalArgument(IllegalArgumentException ex, Model model, HttpServletRequest request) {
         model.addAttribute("fejl", List.of(ex.getMessage()));
+        model.addAttribute("tilbage", request.getHeader("Referer"));
         return "error";
     }
 

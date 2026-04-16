@@ -47,12 +47,15 @@ public class CatService {
         return catRepository.findByMemberId(memberId);
     }
 
-    public void create(Cat cat) {
+    public void create(Cat cat, String memberName) {
+        cat.setBreederName(memberName);
         validateCat(cat);
         catRepository.save(cat);
     }
 
     public void update(Cat cat) {
+        Cat existing = getById(cat.getId());
+        cat.setBreederName(existing.getBreederName());
         validateCat(cat);
         catRepository.update(cat);
     }
@@ -65,9 +68,13 @@ public class CatService {
     private void validateCat(Cat cat) {
         if (cat.getName() == null || cat.getName().isBlank())
             throw new IllegalArgumentException("Navn må ikke være tomt");
-        if (cat.getBreederName() == null || cat.getBreederName().isBlank())
-            throw new IllegalArgumentException("Opdrætter navn må ikke være tomt");
         if (cat.getBirthdate() == null)
             throw new IllegalArgumentException("Fødselsdato må ikke være tom");
+        if (cat.getMotherId() != null && cat.getMotherId().equals(cat.getFatherId()))
+            throw new IllegalArgumentException("Mor og far kan ikke være den samme kat");
+        if (cat.getMotherId() != null && cat.getMotherId() == cat.getId())
+            throw new IllegalArgumentException("En kat kan ikke være sin egen mor");
+        if (cat.getFatherId() != null && cat.getFatherId() == cat.getId())
+            throw new IllegalArgumentException("En kat kan ikke være sin egen far");
     }
 }

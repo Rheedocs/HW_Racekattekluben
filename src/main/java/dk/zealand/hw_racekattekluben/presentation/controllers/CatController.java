@@ -35,13 +35,19 @@ public class CatController {
     public String showAddForm(@PathVariable int memberId, Model model, HttpSession session) {
         if (!AuthHelper.isAdminOrSelf(session, memberId)) return "redirect:/access-denied";
         model.addAttribute("cat", new Cat("", null, "", "", memberId));
+        model.addAttribute("allCats", catService.getAll());
         return "cats/add-cat";
     }
 
     @PostMapping("/add-cat")
-    public String addCat(@ModelAttribute Cat cat, HttpSession session) {
+    public String addCat(@ModelAttribute Cat cat,
+                         @RequestParam(required = false) Integer motherId,
+                         @RequestParam(required = false) Integer fatherId,
+                         HttpSession session) {
         if (!AuthHelper.isAdminOrSelf(session, cat.getMemberId())) return "redirect:/access-denied";
-        catService.create(cat);
+        cat.setParents(motherId, fatherId);
+        String memberName = AuthHelper.getLoggedIn(session).getName();
+        catService.create(cat, memberName);
         return "redirect:/cats/members/" + cat.getMemberId();
     }
 
@@ -56,13 +62,19 @@ public class CatController {
         Cat cat = catService.getById(id);
         if (!AuthHelper.isAdminOrSelf(session, cat.getMemberId())) return "redirect:/access-denied";
         model.addAttribute("cat", cat);
+        model.addAttribute("allCats", catService.getAll());
         return "cats/edit-cat";
     }
 
     @PostMapping("/{id}/edit")
-    public String updateCat(@PathVariable int id, @ModelAttribute Cat cat, HttpSession session) {
+    public String updateCat(@PathVariable int id,
+                            @ModelAttribute Cat cat,
+                            @RequestParam(required = false) Integer motherId,
+                            @RequestParam(required = false) Integer fatherId,
+                            HttpSession session) {
         if (!AuthHelper.isAdminOrSelf(session, cat.getMemberId())) return "redirect:/access-denied";
         cat.setId(id);
+        cat.setParents(motherId, fatherId);
         catService.update(cat);
         return "redirect:/cats/members/" + cat.getMemberId();
     }
