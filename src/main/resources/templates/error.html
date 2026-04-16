@@ -22,9 +22,9 @@
     <div class="error-container">
         <img id="error-img" th:src="@{/images/laugh-point-3205881363.gif}" alt="Grinen kat" height="498" width="498"/>
         <h1>LOL! noget gik galt 🙀</h1>
-        <ul class="error-list" th:if="${fejl != null}">
-            <li th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></li>
-        </ul>
+        <div class="error error-centered" th:if="${fejl != null}">
+            <p th:each="fejlBesked : ${fejl}" th:text="${fejlBesked}"></p>
+        </div>
         <p th:if="${fejl == null}">Ukendt fejl... måske katten gjorde det 🐈</p>
         <a class="btn" th:href="${tilbage != null ? tilbage : '/'}">Tilbage</a>
     </div>

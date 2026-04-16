@@ -179,7 +179,11 @@ button:hover, .btn:hover { background-color: var(--primary-dark); }
     border-radius: 4px;
     padding: 10px 16px;
     margin-bottom: 16px;
-    max-width: 250px;
+    max-width: 500px;
+}
+
+.error-centered {
+    margin: 0 auto 16px auto;
 }
 .error-container { max-width: 500px; margin: 60px auto; text-align: center; }
 ul.error-list { list-style: none; padding: 0; }
