@@ -71,6 +71,9 @@ public class MemberService {
     }
 
     public void create(String name, String email, String password, boolean breeder) {
+        if (memberRepository.findByEmail(email) != null)
+            throw new IllegalArgumentException("Email er allerede i brug");
+        validatePassword(password);
         Member member = new Member(name, email, password, Role.USER, breeder);
         validateMember(member);
         member.setPassword(passwordEncoder.encode(member.getPassword()));
@@ -85,7 +88,10 @@ public class MemberService {
             if (breeder && !existing.isBreeder()) existing.becomeBreeder();
             if (!breeder && existing.isBreeder()) existing.removeBreeder();
         }
-        if (newPassword != null && !newPassword.isBlank()) existing.setPassword(passwordEncoder.encode(newPassword));
+        if (newPassword != null && !newPassword.isBlank()) {
+            validatePassword(newPassword);
+            existing.setPassword(passwordEncoder.encode(newPassword));
+        }
         validateMember(existing);
         memberRepository.update(existing);
     }
@@ -112,6 +118,13 @@ public class MemberService {
     private boolean isValidEmail(String email) {
         return email != null && !email.isBlank() &&
                 email.matches("[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}");
+    }
+
+    private void validatePassword(String password) {
+        if (password == null || password.isBlank())
+            throw new IllegalArgumentException("Adgangskode må ikke være tom");
+        if (password.length() < 8)
+            throw new IllegalArgumentException("Adgangskode skal være mindst 8 tegn");
     }
 
     private void validateMember(Member member) {
