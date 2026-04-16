@@ -8,10 +8,10 @@
 </head>
 <body>
 <header th:replace="~{fragments :: header}"></header>
-<main>
+<main th:with="isChad=${cat.name == 'Chad'}, isBogos=${cat.name == 'Bogos'}">
     <h2 th:text="${cat.name}"></h2>
 
-    <div th:if="${cat.name == 'Chad'}" class="cat-container">
+    <div th:if="${isChad}" class="cat-container">
         <img id="chad-img" th:src="@{/images/cats/chad.gif}"
              alt="Chad"
              height="280" width="310"
@@ -19,18 +19,28 @@
         <span id="chad-meow">Meow~~</span>
     </div>
 
-    <img th:if="${cat.name != 'Chad' and cat.imagePath != null}"
+    <div th:if="${isBogos}" class="cat-container">
+        <img th:src="${cat.imagePath}"
+             th:alt="${cat.name}"
+             class="cat-detail-img"/>
+        <span id="bogos-text" style="display: none;">Bogos binted? 👽</span>
+    </div>
+
+    <img th:if="${!isChad and !isBogos and cat.imagePath != null}"
          class="cat-detail-img"
          th:src="${cat.imagePath}"
          th:alt="${cat.name}">
 
     <div class="cat-detail-info">
         <p><strong>EMS kode:</strong> <span th:text="${cat.emsCode}"></span>
-            <span th:if="${cat.name == 'Chad'}"> 👑</span>
+            <span th:if="${isChad}"> 👑</span>
+            <span th:if="${isBogos}"> 👽</span>
         </p>
-        <p th:if="${cat.name == 'Chad'}"><strong>Temperament:</strong>Rolig men planlægger noget</p>
-        <p th:if="${cat.name == 'Chad'}"><strong>Status:</strong> Årvågen, stabil, mildt dømmende</p>
-        <p><strong>Fødselsdato:</strong> <span th:text="${cat.birthdate}"></span></p>
+        <p th:if="${isChad}"><strong>Temperament:</strong> Rolig men planlægger noget</p>
+        <p th:if="${isChad}"><strong>Status:</strong> Årvågen, stabil, mildt dømmende</p>
+        <p th:if="${isBogos}"><strong>Oprindelse:</strong> Ukendt</p>
+        <p th:if="${isBogos}"><strong>Status:</strong> Observerer. Venter.</p>
+        <p><strong>Fødselsdato:</strong> <span th:text="${cat.birthdate != null ? cat.birthdate : 'Ukendt'}"></span></p>
         <p><strong>Opdrætter:</strong> <span th:text="${cat.breederName}"></span></p>
         <p><strong>Mor:</strong> <span th:text="${cat.motherName != null ? cat.motherName : '-'}"></span></p>
         <p><strong>Far:</strong> <span th:text="${cat.fatherName != null ? cat.fatherName : '-'}"></span></p>
@@ -56,6 +66,18 @@
             meow.style.display = 'inline';
             meow.classList.add('meow-animate');
         });
+    });
+</script>
+
+<script th:if="${cat.name == 'Bogos'}">
+    window.addEventListener('load', () => {
+        const text = document.getElementById('bogos-text');
+
+        setTimeout(() => {
+            const audio = new Audio('/sounds/bogosbinted.mp3');
+            audio.play();
+            text.style.display = 'inline';
+        }, 1500);
     });
 </script>
 </body>

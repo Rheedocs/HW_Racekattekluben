@@ -20,6 +20,7 @@
     <div class="quick-links">
         <a class="btn" th:href="@{/exhibitions}">Se udstillinger</a>
         <a class="btn" th:if="${session.member == null}" th:href="@{/members/register}">Bliv medlem</a>
+        <a class="btn" th:if="${session.member == null}" th:href="@{/login}">Log ind</a>
         <a class="btn" th:if="${session.member != null}" th:href="@{/members}">Se medlemmer</a>
     </div>
 </main>

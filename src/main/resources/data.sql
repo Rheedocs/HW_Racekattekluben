@@ -27,7 +27,8 @@ INSERT INTO cat (name, birthdate, deathdate, ems_code, breeder_name, image_path,
 ('Odin', '2020-09-14', NULL, 'NOR a 22', 'Gunnar Pedersen', '/images/cats/odin.jpg', 7, NULL, NULL),
 ('Bella', '2022-05-30', NULL, 'NOR ns 22', 'Gunnar Pedersen', '/images/cats/bella.jpg', 7, NULL, NULL),
 ('Loke', '2019-11-03', NULL, 'NOR a 22', 'Birgitte Hansen', '/images/cats/loke.jpg', 2, NULL, NULL),
-('Chad', '2020-01-01', NULL, 'XSH w', 'Anders Nielsen', '/images/cats/chad.gif', 1, NULL, NULL);
+('Chad', '2020-01-01', NULL, 'XSH w', 'Anders Nielsen', '/images/cats/chad.gif', 1, NULL, NULL),
+('Bogos',  '0001-01-01', NULL, 'ETSH g ??', 'Anders Nielsen', '/images/cats/bogos.jpg', 1, NULL, NULL);
 
 UPDATE cat SET mother_id = 3, father_id = 2 WHERE id = 1;
 UPDATE cat SET mother_id = 1, father_id = 6 WHERE id = 7;

@@ -22,6 +22,8 @@ body {
 header {
     background-color: var(--primary);
     padding: 16px 32px;
+    position: relative;
+    overflow: visible;
 }
 
 header > div {
@@ -30,6 +32,7 @@ header > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 header h1 a {
@@ -47,6 +50,26 @@ nav {
 nav a, nav span a { color: white; text-decoration: none; }
 nav > span { display: flex; gap: 16px; color: white; }
 nav a:hover, nav span a:hover { text-decoration: underline; }
+
+/* ── Burger menu ── */
+.menu-toggle {
+    display: none;
+}
+
+.burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.burger span {
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    display: block;
+}
 
 /* ── Layout ── */
 main {
@@ -91,7 +114,7 @@ input, select {
     box-sizing: border-box;
 }
 input[type="checkbox"] { display: inline; width: auto; }
-
+input#menu-toggle { display: none !important; width: auto; margin: 0; padding: 0; border: none; }
 
 /* ── Knapper ── */
 button, .btn {
@@ -190,8 +213,48 @@ ul.error-list { list-style: none; padding: 0; }
 ul.error-list li { color: var(--error); padding: 4px 0; }
 
 /* ── Responsiv ── */
-@media (max-width: 600px) {
-    header > div { flex-direction: column; align-items: flex-start; gap: 8px; }
+@media (max-width: 768px) {
+    .burger {
+        display: flex;
+    }
+
+    nav.nav {
+        position: absolute;
+        top: 70px;
+        left: -32px;
+        right: -32px;
+        background-color: var(--primary-dark);
+        display: none;
+        flex-direction: column;
+        padding: 0;
+        z-index: 999;
+    }
+
+    nav.nav a,
+    nav.nav span a {
+        display: block;
+        padding: 8px 32px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        text-align: center;
+    }
+
+    nav.nav > span {
+        display: contents;
+        font-size: 0;
+    }
+
+    .menu-toggle:checked + .burger + nav.nav {
+        display: flex;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
     table { font-size: 13px; }
     th, td { padding: 6px; }
     input, select { width: 100%; }
